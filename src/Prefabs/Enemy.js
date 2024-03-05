@@ -1,7 +1,11 @@
 //probably have multiple enemies with different states and skins based on this class to make it easier on me
 class Enemy extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene){
-
+    constructor(scene, x, y){
+        super(scene, x, y, 'enemy')
+        scene.add.existing(this)
+        this.scene = scene 
+        //player lives = 3
+        //add in the scene.existing.this() 
     }
 
     update(){

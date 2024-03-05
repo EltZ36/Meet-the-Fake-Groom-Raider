@@ -1,5 +1,8 @@
 class Player extends Phaser.Physics.Arcade.Sprite{
-    constructor(scene){
+    constructor(scene, x, y){
+        super(scene, x, y, 'player')
+        scene.add.existing(this)
+        this.scene = scene 
         //player lives = 3
         //add in the scene.existing.this() 
     }
