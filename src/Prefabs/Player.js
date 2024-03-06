@@ -4,9 +4,11 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         scene.add.existing(this)
         scene.physics.add.existing(this)
         this.scene = scene 
+        this.lives = 3
         //player lives = 3
         //add in the scene.existing.this() 
         this.isJumping = false 
+        this.isFiring = false 
     }
 
     update(){
@@ -27,11 +29,14 @@ class Player extends Phaser.Physics.Arcade.Sprite{
                 loop: false
             });
         }
-        /*if(Phaser.Input.Keyboard.JustDown(keyUP) != true && this.isJumping == true){
-            this.body.setVelocityY(300)
-            this.isJumping = false 
-        }*/
     }
 
-    //checklives() <- check the lives of the player and return it 
+    //getters and setters for the black box approach/cleaner way to access the lives 
+    setLives(lives){
+        this.lives = lives 
+    }
+
+    getLives(){
+        return this.lives 
+    }
 }

@@ -25,4 +25,9 @@ class Menu extends Phaser.Scene{
             this.scene.start('playScene')
         }
     }
+
+    //if you got hit, reduce the number of lives you have and this goes for both the enemy and the player to make it easier on me
+    gotHit(){
+
+    }
 }

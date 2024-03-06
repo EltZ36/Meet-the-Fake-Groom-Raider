@@ -5,12 +5,20 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         scene.add.existing(this)
         scene.physics.add.existing(this)
         this.scene = scene 
+        this.lives = 5 
         //player lives = 3
         //add in the scene.existing.this() 
     }
 
     update(){
-        //add in jumping for the character and then a fire button too 
-        //jumping is done with either space bar or up arrow with fire being f or maybe a mouse click instead to make it easier 
+        
+    }
+
+    setLives(lives){
+        this.lives = lives 
+    }
+
+    getLives(){
+        return this.lives 
     }
 }
