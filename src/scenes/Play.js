@@ -6,7 +6,9 @@ class Play extends Phaser.Scene{
     create(){
         this.player = new Player(this, 400, 500)
         this.bride = new Bride(this, 200, 500)
-        this.enemy = new Enemy(this, 600, 500)
+        this.enemy = new Enemy(this, 650, 495).setScale(1.2, 1.2)
+        this.add.rectangle(0, 600, 2000, 138, 0x964B00)
+        //this.enemy.setScale(1.2, 1.2)
         //flashing up arrow with the character to indicate moving and then remove it afterwards
         //add in the arcade style text and whatnot to this 
         //add in a collider for the flowers and the bride 
