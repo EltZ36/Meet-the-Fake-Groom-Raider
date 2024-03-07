@@ -33,23 +33,32 @@ class Play extends Phaser.Scene{
 
     update(){
         this.player.update()
-        if(keyFire.isDown()){
-            console.log('Firing')
-            //fireBullet()
+        this.bullet_firing = false 
+        //is there a way to set a timer and make sure that the player can't fire and just spam? 
+        if(Phaser.Input.Keyboard.JustDown(keyFire)){
+            this.fireBullet()
+        }
+        if(this.enemy.getLives() == 0){
+            this.scene.start('gameOverScene')
         }
     }
 
-    /*fireBullet()
-        have the player fire with f in the update and call on this function 
-        create a bullet with the projectile class and then add a collider? 
-        this.bullet = new Projectile(this.player.x, this.player.y, 'bullet')
+    fireBullet(){
+        //have the player fire with f in the update and call on this function 
+        //create a bullet with the projectile class and then add a collider
+        //add in a flag variable for the bullet to make sure you can't just spam the bullet 
+        this.bullet = new Projectile(this, this.player.x, this.player.y, 0, 'bullet')
         this.bullet.setVelocityX(200)
-        //not sure if this collider will work properly at all 
-        this.physics.add.collider(this.bride, this.bullet, () =>{
+        //collider for the enemy and the bullet 
+        this.physics.add.collider(this.enemy, this.bullet, () =>{
             this.bullet.destroy()
-            this.bride.setLives(this.bride.getLives() - 1)
+            this.enemy.setLives(this.enemy.getLives() - 1)
         })
-    */
+        //console.log(this.bullet.x)
+        /*if(this.bullet.y == 495){
+            this.bullet.destroy()
+        }*/
+    }
 
     //maybe have a move character function for it? But it only needs to run once in the entire scene and it needs to be done every time the scene is called
     /*cutscene(){
