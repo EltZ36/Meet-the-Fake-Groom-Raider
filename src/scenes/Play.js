@@ -4,8 +4,10 @@ class Play extends Phaser.Scene{
     }
 
     create(){
+        //player input 
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
         keyFire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
+        //sprites needed: bride, player/groom, enemy 
         this.player = new Player(this, 400, 500)
         this.bride = new Bride(this, 200, 500)
         this.enemy = new Enemy(this, 650, 495).setScale(1.2, 1.2)
@@ -38,11 +40,13 @@ class Play extends Phaser.Scene{
         if(Phaser.Input.Keyboard.JustDown(keyFire)){
             this.fireBullet()
         }
-        if(this.enemy.getLives() == 0){
+        if(this.enemy.getLives() == 0 || this.player.getLives() == 0){
             this.scene.start('gameOverScene')
         }
+        this.throwFlower()
     }
 
+    //shoot out a bullet with f
     fireBullet(){
         //have the player fire with f in the update and call on this function 
         //create a bullet with the projectile class and then add a collider
@@ -58,6 +62,22 @@ class Play extends Phaser.Scene{
         /*if(this.bullet.y == 495){
             this.bullet.destroy()
         }*/
+    }
+
+    //for the enemy thowing the flower 
+    throwFlower(){
+        //make a new flower and timer for the flowers
+        this.flower = new Projectile(this, this.enemy.x, this.enemy.y, 0, 'flower')
+        this.flower.setPushable(false)
+        this.flower.setVelocityX(-200)
+        //collider for bride and player/groom 
+        this.physics.add.collider(this.flower, this.bride, () =>{
+            this.flower.destroy() 
+        })
+        this.physics.add.collider(this.flower, this.player, () =>{
+            this.flower.destroy() 
+            this.player.setLives(this.player.getLives() - 1)
+        })
     }
 
     //maybe have a move character function for it? But it only needs to run once in the entire scene and it needs to be done every time the scene is called

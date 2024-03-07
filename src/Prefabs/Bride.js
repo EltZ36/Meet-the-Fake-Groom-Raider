@@ -4,6 +4,7 @@ class Bride extends Phaser.Physics.Arcade.Sprite{
         scene.add.existing(this)
         scene.physics.add.existing(this)
         this.scene = scene 
+        this.setImmovable() 
         //player lives = 3
         //add in the scene.existing.this() 
     }
