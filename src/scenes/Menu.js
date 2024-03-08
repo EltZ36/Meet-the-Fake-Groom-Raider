@@ -23,6 +23,12 @@ class Menu extends Phaser.Scene{
     create(){
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         this.add.text(50, 50, 'this is the menu')
+        this.anims.create({
+            key: 'jumpControl',
+            frames: this.anims.generateFrameNumbers('arrow', {start: 0, end: 2}),
+            frameRate: 3,
+            repeat: -1
+        })
     }
     
     update(){

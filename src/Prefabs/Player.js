@@ -3,13 +3,15 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         super(scene, x, y, 'player')
         scene.add.existing(this)
         scene.physics.add.existing(this)
-        this.setPushable(false)
+        //this.setImmovable(true)
         this.scene = scene 
         this.lives = 3
         //player lives = 3
         //add in the scene.existing.this() 
         this.isJumping = false 
         this.isFiring = false 
+        this.setPushable(false)
+        this.body.setGravityY(300)
     }
 
     update(){
@@ -20,21 +22,11 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         if(this.y >= 499){
             this.isJumping = false
         }
-        if(this.y < 499){
-            this.isJumping = true 
-        }
         if(Phaser.Input.Keyboard.JustDown(keyUP) && this.isJumping == false){
-            this.body.setVelocityY(-500)
-            this.body.setGravityY(10)
+            this.body.setVelocityY(-300)
+            //this.body.setGravityY(10)
+            this.isJumping = true 
             this.scene.sound.play('jump')
-            this.jumpTimer = this.scene.time.addEvent({
-                delay: 300, 
-                callback: () => {
-                    this.body.setVelocityY(500)
-                },
-                callbackScope: this,
-                loop: false
-            });
         }
     }
 
