@@ -21,7 +21,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.body.setVelocityY(-500)
             this.body.setGravityY(10)
             this.isJumping = true 
-            this.timer = this.scene.time.addEvent({
+            this.jumpTimer = this.scene.time.addEvent({
                 delay: 300, 
                 callback: () => {
                     this.body.setVelocityY(500)

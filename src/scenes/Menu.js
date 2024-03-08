@@ -9,7 +9,10 @@ class Menu extends Phaser.Scene{
         this.load.image('player', './assets/img/groom.png')
         this.load.image('enemy', './assets/img/enemy.png')
         this.load.image('bride',  './assets/img/bride.png')
-        this.load.image('arrow', './assets/img/arrow.png')
+        this.load.spritesheet('arrow', './assets/img/arrow.png', {
+            frameWidth: 32,
+            frameHeight: 64
+        })
         this.load.image('bullet', './assets/img/bullet.png')
         this.load.image('ground', './assets/img/ground.png')
     }

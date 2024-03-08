@@ -11,11 +11,6 @@ class Play extends Phaser.Scene{
         this.player = new Player(this, 400, 500)
         this.bride = new Bride(this, 200, 500)
         this.enemy = new Enemy(this, 650, 495).setScale(1.2, 1.2)
-        /*
-        //make sure that the bullet is firing based on the player's position 
-        this.bullet = new Projectile(this.player.x, this.player.y, bullet)
-        this.flower = new Projectile('flower') 
-        */ 
         //https://phasergames.com/how-to-jump-in-phaser-3/ 
         this.ground = this.physics.add.sprite(0, 600, 'ground')
         this.ground.setImmovable()
@@ -23,27 +18,49 @@ class Play extends Phaser.Scene{
             this.player,
             this.ground
         )
+        //switch to texture atlas soon 
+        this.anims.create({
+            key: 'jumpControl',
+            frames: this.anims.generateFrameNumbers('arrow', {start: 0, end: 2}),
+            frameRate: 3,
+            repeat: -1
+        })
+        let arrow_sprite = this.add.sprite(400, 430, 'arrow').play('jumpControl')
+        this.jumpInstructions = this.time.addEvent({
+            delay: 3000,
+            callback: () => {
+                arrow_sprite.destroy()
+            },
+            repeat: -1
+        })
         //this.enemy.setScale(1.2, 1.2)
         //flashing up arrow with the character to indicate moving and then remove it afterwards
         //add in the arcade style text and whatnot to this 
-        //add in a collider for the flowers and the bride 
-        //add in collider for the flowers and you too  
-        //collider for bullets to the enemy 
-        //move to the next scene/level if the enemy hp gets low enough and gameover if you have 0 lives.
         //bride needs to move the sign up and down 
     }
 
     update(){
         this.player.update()
         this.bullet_firing = false 
+        //this.throwFlower()
+        //let arrow = this.add.sprite(this, 400, 520, 'arrow')
+        //this.add.sprite(400, 430, 'arrow').play('jumpControl')
         //is there a way to set a timer and make sure that the player can't fire and just spam? 
+        /*this.showControlsTimer = this.time.addEvent({
+            delay: 100,
+            callback: () =>{
+                let arrow = this.add.sprite(this, 400, 520, 'arrow')
+                arrow.anims.play('jumpControl')
+            },
+            loop: false 
+        })*/
         if(Phaser.Input.Keyboard.JustDown(keyFire)){
             this.fireBullet()
         }
         if(this.enemy.getLives() == 0 || this.player.getLives() == 0){
             this.scene.start('gameOverScene')
         }
-        this.throwFlower()
+        //add in the arrow function for the player to be displayed 
     }
 
     //shoot out a bullet with f
@@ -67,16 +84,23 @@ class Play extends Phaser.Scene{
     //for the enemy thowing the flower 
     throwFlower(){
         //make a new flower and timer for the flowers
-        this.flower = new Projectile(this, this.enemy.x, this.enemy.y, 0, 'flower')
-        this.flower.setPushable(false)
-        this.flower.setVelocityX(-200)
-        //collider for bride and player/groom 
-        this.physics.add.collider(this.flower, this.bride, () =>{
-            this.flower.destroy() 
-        })
-        this.physics.add.collider(this.flower, this.player, () =>{
-            this.flower.destroy() 
-            this.player.setLives(this.player.getLives() - 1)
+        //collider for bride and player/groom
+        this.timer = this.time.addEvent({
+            delay: 1000, 
+            callback: () => {
+                //add a delay somehow? 
+                this.flower = new Projectile(this, this.enemy.x, this.enemy.y, 0, 'flower').setScale(0.5)
+                this.flower.setPushable(false)
+                this.flower.setVelocityX(-200)  
+                this.physics.add.collider(this.flower, this.bride, () =>{
+                    this.flower.destroy() 
+                })
+                this.physics.add.collider(this.flower, this.player, () =>{
+                    this.flower.destroy() 
+                    this.player.setLives(this.player.getLives() - 1)
+                })
+            },
+            loop: false 
         })
     }
 
