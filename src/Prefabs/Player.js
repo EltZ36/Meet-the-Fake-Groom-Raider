@@ -17,7 +17,13 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //jumping is done with either space bar or up arrow with fire being f or maybe a mouse click instead to make it easier 
         //jumping based on tutorial by https://phasergames.com/how-to-jump-in-phaser-3/  
         //could swap this to += instead of velocity 
-        if(Phaser.Input.Keyboard.JustDown(keyUP)){
+        if(this.y >= 499){
+            this.isJumping = false
+        }
+        if(this.y < 499){
+            this.isJumping = true 
+        }
+        if(Phaser.Input.Keyboard.JustDown(keyUP) && this.isJumping == false){
             this.body.setVelocityY(-500)
             this.body.setGravityY(10)
             this.scene.sound.play('jump')

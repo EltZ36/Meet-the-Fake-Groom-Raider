@@ -25,6 +25,7 @@ class Play extends Phaser.Scene{
             frameRate: 3,
             repeat: -1
         })
+        //flashing up arrow with the character to indicate moving and then remove it afterwards
         this.arrowInstructions = this.add.sprite(400, 430, 'arrow').play('jumpControl')
         this.jumpInstructions = this.time.addEvent({
             delay: 3000,
@@ -33,8 +34,6 @@ class Play extends Phaser.Scene{
             },
             repeat: -1
         })
-        //this.enemy.setScale(1.2, 1.2)
-        //flashing up arrow with the character to indicate moving and then remove it afterwards
         //add in the arcade style text and whatnot to this 
         //bride needs to move the sign up and down 
     }
@@ -43,8 +42,6 @@ class Play extends Phaser.Scene{
         this.player.update()
         this.bullet_firing = false 
         //this.throwFlower()
-        //let arrow = this.add.sprite(this, 400, 520, 'arrow')
-        //this.add.sprite(400, 430, 'arrow').play('jumpControl')
         //is there a way to set a timer and make sure that the player can't fire and just spam? 
         /*this.showControlsTimer = this.time.addEvent({
             delay: 100,
@@ -60,12 +57,12 @@ class Play extends Phaser.Scene{
         }
         if(Phaser.Input.Keyboard.JustDown(keyFire)){
             this.fireBullet()
-            this.sound.play('gunshot')
+          //  this.sound.play('gunshot')
         }
         if(this.enemy.getLives() == 0 || this.player.getLives() == 0){
             this.scene.start('gameOverScene')
         }
-        //add in the arrow function for the player to be displayed 
+        console.log(this.player.y)
     }
 
     //shoot out a bullet with f
@@ -76,14 +73,10 @@ class Play extends Phaser.Scene{
         this.bullet = new Projectile(this, this.player.x, this.player.y, 0, 'bullet')
         this.bullet.setVelocityX(200)
         //collider for the enemy and the bullet 
-        this.physics.add.collider(this.enemy, this.bullet, () =>{
-            this.bullet.destroy()
-            this.enemy.setLives(this.enemy.getLives() - 1)
+        this.physics.add.collider(this.enemy, this.bullet, (enemy, bullet) =>{
+            bullet.destroy()
+            enemy.setLives(enemy.getLives() - 1)
         })
-        //console.log(this.bullet.x)
-        /*if(this.bullet.y == 495){
-            this.bullet.destroy()
-        }*/
     }
 
     //for the enemy thowing the flower 
@@ -100,6 +93,7 @@ class Play extends Phaser.Scene{
                 this.physics.add.collider(this.flower, this.bride, () =>{
                     this.flower.destroy() 
                 })
+                //same thing as before 
                 this.physics.add.collider(this.flower, this.player, () =>{
                     this.flower.destroy() 
                     this.player.setLives(this.player.getLives() - 1)
