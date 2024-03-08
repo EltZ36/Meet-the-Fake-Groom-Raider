@@ -15,6 +15,8 @@ class Menu extends Phaser.Scene{
         })
         this.load.image('bullet', './assets/img/bullet.png')
         this.load.image('ground', './assets/img/ground.png')
+        this.load.audio('gunshot', './assets/audio/gunshot.wav')
+        this.load.audio('jump', './assets/audio/jump.wav')
     }
 
     //start creating the sprites and stuff 

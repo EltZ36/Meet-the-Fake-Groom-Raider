@@ -25,11 +25,11 @@ class Play extends Phaser.Scene{
             frameRate: 3,
             repeat: -1
         })
-        let arrow_sprite = this.add.sprite(400, 430, 'arrow').play('jumpControl')
+        this.arrowInstructions = this.add.sprite(400, 430, 'arrow').play('jumpControl')
         this.jumpInstructions = this.time.addEvent({
             delay: 3000,
             callback: () => {
-                arrow_sprite.destroy()
+                this.arrowInstructions.destroy()
             },
             repeat: -1
         })
@@ -54,8 +54,13 @@ class Play extends Phaser.Scene{
             },
             loop: false 
         })*/
+        //destroy the arrow when the jump button is pressed 
+        if(keyUP.isDown){
+            this.arrowInstructions.destroy()
+        }
         if(Phaser.Input.Keyboard.JustDown(keyFire)){
             this.fireBullet()
+            this.sound.play('gunshot')
         }
         if(this.enemy.getLives() == 0 || this.player.getLives() == 0){
             this.scene.start('gameOverScene')
