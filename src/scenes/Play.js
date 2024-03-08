@@ -4,6 +4,7 @@ class Play extends Phaser.Scene{
     }
 
     create(){
+        this.physics.world.setBounds(0,0, 0, 530, false, false, false, true)
         //player input 
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
         keyFire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
@@ -11,6 +12,7 @@ class Play extends Phaser.Scene{
         this.player = new Player(this, 400, 500)
         this.bride = new Bride(this, 200, 500)
         this.enemy = new Enemy(this, 650, 495).setScale(1.2, 1.2)
+        //set the world bounds for this instead of a rectangle. 
         //https://phasergames.com/how-to-jump-in-phaser-3/ 
         this.ground = this.physics.add.sprite(0, 600, 'ground')
         this.ground.setImmovable()
@@ -28,13 +30,13 @@ class Play extends Phaser.Scene{
             },
             repeat: -1
         })
-        this.throwTimer = this.time.addEvent({
+        /*this.throwTimer = this.time.addEvent({
             delay: 3000,
             callback: () => {
                 this.throwFlower()
             },
             repeat: -1
-        })
+        })*/
         //add in the arcade style text and whatnot to this 
         //bride needs to move the sign up and down 
     }
@@ -42,7 +44,6 @@ class Play extends Phaser.Scene{
     update(){
         this.player.update()
         this.bullet_firing = false 
-        console.log(this.player.getLives())
         //is there a way to set a timer and make sure that the player can't fire and just spam? 
         //destroy the arrow when the jump button is pressed 
         if(keyUP.isDown){
@@ -50,7 +51,7 @@ class Play extends Phaser.Scene{
         }
         if(Phaser.Input.Keyboard.JustDown(keyFire)){
             this.fireBullet()
-          //  this.sound.play('gunshot')
+            this.sound.play('gunshot')
         }
         if(this.enemy.getLives() == 0 || this.player.getLives() == 0){
             this.scene.start('gameOverScene')

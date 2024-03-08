@@ -6,6 +6,7 @@ class Projectile extends Phaser.Physics.Arcade.Sprite{
         this.scene = scene 
         this.hitStatus = false 
         this.fireStatus = false
+        //this.setImmovable(true)
         //player lives = 3
         //add in the scene.existing.this() 
     }

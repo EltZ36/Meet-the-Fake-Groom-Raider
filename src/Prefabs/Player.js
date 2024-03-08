@@ -3,14 +3,12 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         super(scene, x, y, 'player')
         scene.add.existing(this)
         scene.physics.add.existing(this)
-        //this.setImmovable(true)
         this.scene = scene 
-        this.lives = 3
-        //player lives = 3
-        //add in the scene.existing.this() 
-        this.isJumping = false 
+        this.lives = 3 
         this.isFiring = false 
-        this.setPushable(false)
+        this.setCollideWorldBounds(true)
+        this.setImmovable(true)
+        //this.setPushable(true)
         this.body.setGravityY(300)
     }
 
@@ -19,13 +17,9 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //jumping is done with either space bar or up arrow with fire being f or maybe a mouse click instead to make it easier 
         //jumping based on tutorial by https://phasergames.com/how-to-jump-in-phaser-3/  
         //could swap this to += instead of velocity 
-        if(this.y >= 499){
-            this.isJumping = false
-        }
-        if(Phaser.Input.Keyboard.JustDown(keyUP) && this.isJumping == false){
+        //can change it to 480 instead
+        if(Phaser.Input.Keyboard.JustDown(keyUP) && this.y >= 470){
             this.body.setVelocityY(-300)
-            //this.body.setGravityY(10)
-            this.isJumping = true 
             this.scene.sound.play('jump')
         }
     }

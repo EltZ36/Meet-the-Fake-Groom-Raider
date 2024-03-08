@@ -29,6 +29,7 @@ class Menu extends Phaser.Scene{
             frameRate: 3,
             repeat: -1
         })
+        //needs credits as well. 
     }
     
     update(){
