@@ -5,6 +5,7 @@ class Menu extends Phaser.Scene{
 
     //load in the texture atlas as well as the sound 
     preload(){
+        //load images
         this.load.image('flower', './assets/img/flower.png')
         this.load.image('player', './assets/img/groom.png')
         this.load.image('enemy', './assets/img/enemy.png')
@@ -17,12 +18,14 @@ class Menu extends Phaser.Scene{
         this.load.image('ground', './assets/img/ground.png')
         this.load.audio('gunshot', './assets/audio/gunshot.wav')
         this.load.audio('jump', './assets/audio/jump.wav')
+        //bitmap font from https://www.dafont.com/8-bit-1-6.font#null 
+        this.load.bitmapFont('arcadeFont', './assets/font/arcadeFont.png', './assets/font/arcadeFont.xml')
     }
 
     //start creating the sprites and stuff 
     create(){
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
-        this.add.text(50, 50, 'this is the menu')
+        this.add.bitmapText(50, 200, 'arcadeFont', 'this is the menu. Press space to start the game.', 20)
         this.anims.create({
             key: 'jumpControl',
             frames: this.anims.generateFrameNumbers('arrow', {start: 0, end: 2}),
