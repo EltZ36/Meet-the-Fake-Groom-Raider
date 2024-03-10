@@ -32,8 +32,45 @@ class Menu extends Phaser.Scene{
         //create the arrow animation 
         this.anims.create({
             key: 'jumpControl',
-            frames: this.anims.generateFrameNumbers('arrow', {start: 0, end: 2}),
+            frames: this.anims.generateFrameNames('atlas', {
+                prefix: 'arrow0',
+                suffix: '.png',
+                start: 1,
+                end: 3,
+            }),
             frameRate: 3,
+            repeat: -1
+        })
+        this.anims.create({
+            key: 'playerIdle',
+            frames: this.anims.generateFrameNames('atlas', {
+                prefix: 'player0',
+                suffix: '.png',
+                start: 0,
+                end: 1,
+            }), 
+            frameRate: 7, 
+            repeat: -1 
+        })
+        this.anims.create({
+            key: 'brideIdle',
+            frames: this.anims.generateFrameNames('atlas', {
+                prefix: 'bride0',
+                suffix: '.png',
+                frames: [3,2,1,2],
+            }),
+            frameRate: 10,
+            repeat: -1
+        })
+        this.anims.create({
+            key: 'enemyIdle',
+            frames: this.anims.generateFrameNames('atlas', {
+                prefix: 'enemy0',
+                suffix: '.png',
+                start: 1,
+                end: 3,
+            }), 
+            frameRate: 10,
             repeat: -1
         })
         //player idle

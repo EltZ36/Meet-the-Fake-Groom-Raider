@@ -8,10 +8,11 @@ class Play extends Phaser.Scene{
         //player input 
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
         keyFire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
-        //sprites needed: bride, player/groom, enemy 
+        //sprites needed: bride, player/groom, enemy
+        //set the scale of these to be larger later down the line
         this.player = new Player(this, 400, 500)
-        this.bride = new Bride(this, 200, 500)
-        this.enemy = new Enemy(this, 650, 495).setScale(1.2, 1.2)
+        this.bride = new Bride(this, 200, 480)
+        this.enemy = new Enemy(this, 650, 485).setScale(1.2, 1.2)
         //set the world bounds for this instead of a rectangle. 
         //https://phasergames.com/how-to-jump-in-phaser-3/ 
         this.ground = this.physics.add.sprite(0, 600, 'atlas', 'ground.png')
@@ -29,7 +30,7 @@ class Play extends Phaser.Scene{
         this.highScoreNumber = this.add.bitmapText(350, 120, 'arcadeFont', '000000000', 20)
         this.lifeIcon = this.add.image(595, 110, 'atlas', 'livesFace.png').setScale(3)
         this.livesText = this.add.bitmapText(630, 100, 'arcadeFont', 'X3', 50)
-        this.arrowInstructions = this.add.sprite(400, 430, 'arrow').play('jumpControl')
+        this.arrowInstructions = this.add.sprite(400, 430, 'atlas', 'arrow.png').play('jumpControl')
         this.jumpInstructions = this.time.addEvent({
             delay: 3000,
             callback: () => {
@@ -37,13 +38,17 @@ class Play extends Phaser.Scene{
             },
             repeat: -1
         })
+        //grader mode for this as I plan to make this much faster 
         this.throwTimer = this.time.addEvent({
             delay: 3000,
             callback: () => {
-                this.throwFlower()
+                //this.throwFlower()
             },
             repeat: -1
         })
+        this.player.anims.play('playerIdle')
+        this.bride.anims.play('brideIdle')
+        this.enemy.anims.play('enemyIdle')
         //add in the arcade style text and whatnot to https://www.dafont.com/8-bit-1-6.font#nullhttps://www.dafont.com/8-bit-1-6.font#nullthis 
         //bride needs to move the sign up and down 
         //add in lives counter with image as well as the score calc and other things in the menu rn 
@@ -88,7 +93,8 @@ class Play extends Phaser.Scene{
         //collider for bride and player/groom
         //add a delay somehow? 
         //this.flower = new Projectile(this, this.enemy.x, this.enemy.y, 0, 'atlas', 'flower.png')
-        this.flower = new Projectile(this, 400, 400, 'atlas', 'flower.png')
+        //this.flower = new Projectile(this, 400, 400, 'atlas', 'flower.png')
+        this.flower = new Projectile(this, 400, 400, 'flower')
         this.flower.setPushable(false)
         this.flower.setVelocityX(-200)  
         this.physics.add.collider(this.flower, this.bride, (flower, bride) =>{
