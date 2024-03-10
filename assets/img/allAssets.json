@@ -103,7 +103,7 @@
         "w": 74,
         "h": 72
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 6,
@@ -122,8 +122,8 @@
     },
     "player01.png": {
       "frame": {
-        "x": 0,
-        "y": 293,
+        "x": 72,
+        "y": 143,
         "w": 72,
         "h": 72
       },
@@ -147,7 +147,7 @@
     "bride01.png": {
       "frame": {
         "x": 0,
-        "y": 365,
+        "y": 291,
         "w": 50,
         "h": 67
       },
@@ -171,7 +171,7 @@
     "bride02.png": {
       "frame": {
         "x": 0,
-        "y": 432,
+        "y": 358,
         "w": 50,
         "h": 67
       },
@@ -195,7 +195,7 @@
     "enemy01.png": {
       "frame": {
         "x": 0,
-        "y": 499,
+        "y": 425,
         "w": 50,
         "h": 66
       },
@@ -219,7 +219,7 @@
     "enemy02.png": {
       "frame": {
         "x": 0,
-        "y": 565,
+        "y": 491,
         "w": 50,
         "h": 66
       },
@@ -243,7 +243,7 @@
     "arrow01.png": {
       "frame": {
         "x": 0,
-        "y": 631,
+        "y": 557,
         "w": 16,
         "h": 31
       },
@@ -267,7 +267,7 @@
     "arrow02.png": {
       "frame": {
         "x": 0,
-        "y": 662,
+        "y": 588,
         "w": 16,
         "h": 31
       },
@@ -288,34 +288,10 @@
         "y": 0.5
       }
     },
-    "flower.png": {
-      "frame": {
-        "x": 0,
-        "y": 693,
-        "w": 25,
-        "h": 14
-      },
-      "rotated": true,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 1,
-        "y": 0,
-        "w": 25,
-        "h": 14
-      },
-      "sourceSize": {
-        "w": 26,
-        "h": 14
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
     "present01.png": {
       "frame": {
         "x": 0,
-        "y": 718,
+        "y": 619,
         "w": 24,
         "h": 24
       },
@@ -338,12 +314,12 @@
     },
     "present00.png": {
       "frame": {
-        "x": 14,
-        "y": 693,
+        "x": 16,
+        "y": 557,
         "w": 24,
         "h": 19
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 4,
@@ -360,38 +336,14 @@
         "y": 0.5
       }
     },
-    "bullet.png": {
-      "frame": {
-        "x": 16,
-        "y": 631,
-        "w": 23,
-        "h": 12
-      },
-      "rotated": true,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 23,
-        "h": 12
-      },
-      "sourceSize": {
-        "w": 24,
-        "h": 12
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
     "livesFace.png": {
       "frame": {
         "x": 16,
-        "y": 654,
+        "y": 576,
         "w": 20,
         "h": 19
       },
-      "rotated": true,
+      "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
         "x": 5,
@@ -408,10 +360,58 @@
         "y": 0.5
       }
     },
+    "flower.png": {
+      "frame": {
+        "x": 16,
+        "y": 595,
+        "w": 25,
+        "h": 14
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 1,
+        "y": 0,
+        "w": 25,
+        "h": 14
+      },
+      "sourceSize": {
+        "w": 26,
+        "h": 14
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "bullet.png": {
+      "frame": {
+        "x": 36,
+        "y": 576,
+        "w": 23,
+        "h": 12
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 23,
+        "h": 12
+      },
+      "sourceSize": {
+        "w": 24,
+        "h": 12
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
     "arrow03.png": {
       "frame": {
         "x": 0,
-        "y": 631,
+        "y": 557,
         "w": 16,
         "h": 31
       },
@@ -436,11 +436,11 @@
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.7",
-    "image": "texture.png",
+    "image": "allAssets.png",
     "format": "RGBA8888",
     "size": {
       "w": 2047,
-      "h": 742
+      "h": 643
     },
     "scale": 1
   }

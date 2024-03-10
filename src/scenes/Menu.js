@@ -16,6 +16,9 @@ class Menu extends Phaser.Scene{
         })
         this.load.image('bullet', './assets/img/bullet.png')
         this.load.image('ground', './assets/img/ground.png')
+        //atlas 
+        this.load.atlas('atlas', './assets/img/allAssets.png', './assets/img/allAssets.json')
+        //audio 
         this.load.audio('gunshot', './assets/audio/gunshot.wav')
         this.load.audio('jump', './assets/audio/jump.wav')
         //bitmap font from https://www.dafont.com/8-bit-1-6.font#null 
@@ -26,13 +29,18 @@ class Menu extends Phaser.Scene{
     create(){
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         this.add.bitmapText(50, 200, 'arcadeFont', 'this is the menu. Press space to start the game.', 20)
+        //create the arrow animation 
         this.anims.create({
             key: 'jumpControl',
             frames: this.anims.generateFrameNumbers('arrow', {start: 0, end: 2}),
             frameRate: 3,
             repeat: -1
         })
+        //player idle
+        //bride idle
+        //enemy idle 
         //needs credits as well. 
+    
     }
     
     update(){

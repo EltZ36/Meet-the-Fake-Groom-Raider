@@ -1,6 +1,6 @@
 class Player extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y){
-        super(scene, x, y, 'player')
+        super(scene, x, y, 'atlas', 'player00.png')
         scene.add.existing(this)
         scene.physics.add.existing(this)
         this.scene = scene 
@@ -22,6 +22,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.body.setVelocityY(-300)
             this.scene.sound.play('jump')
         }
+        //have it play the animation 
     }
 
     //getters and setters for the black box approach/cleaner way to access the lives 
