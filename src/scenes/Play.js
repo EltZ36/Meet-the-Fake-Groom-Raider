@@ -7,7 +7,8 @@ class Play extends Phaser.Scene{
         this.physics.world.setBounds(0,0, 0, 530, false, false, false, true)
         //player input 
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
-        keyFire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
+        keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
+        mouseFIRE = this.input.activePointer
         //sprites needed: bride, player/groom, enemy
         //set the scale of these to be larger later down the line
         this.player = new Player(this, 400, 500).setScale(1.2)
@@ -33,7 +34,7 @@ class Play extends Phaser.Scene{
         this.livesText = this.add.bitmapText(630, 100, 'arcadeFont', 'X3', 50)
         this.arrowInstructions = this.add.sprite(390, 390, 'atlas', 'arrow00.png').play('jumpControl')
         this.jumpInstructions = this.time.addEvent({
-            delay: 6000,
+            delay: 3000,
             callback: () => {
                 this.arrowInstructions.destroy()
             },
@@ -41,7 +42,7 @@ class Play extends Phaser.Scene{
         })
         //grader mode for this as I plan to make this much faster 
         this.throwTimer = this.time.addEvent({
-            delay: 3500,
+            delay: 2800,
             callback: () => {
                 this.throwFlower()
             },
@@ -50,10 +51,13 @@ class Play extends Phaser.Scene{
         this.player.anims.play('playerIdle')
         this.bride.anims.play('brideIdle')
         this.enemy.anims.play('enemyIdle')
+        //from https://labs.phaser.io/edit.html?src=src/input\pointer\down%20event.js
+        this.input.on('pointerdown', function (pointer)
+        {
+            this.fireBullet()
+            this.sound.play('gunshot')
+        }, this); 
         //add in the arcade style text and whatnot to https://www.dafont.com/8-bit-1-6.font#nullhttps://www.dafont.com/8-bit-1-6.font#nullthis 
-        //bride needs to move the sign up and down 
-        //add in lives counter with image as well as the score calc and other things in the menu rn 
-        //red tint is with 0xFF0000
     }
 
     update(){
@@ -64,7 +68,7 @@ class Play extends Phaser.Scene{
         if(keyUP.isDown){
             this.arrowInstructions.destroy()
         }
-        if(Phaser.Input.Keyboard.JustDown(keyFire)){
+        if(Phaser.Input.Keyboard.JustDown(keyFIRE)){
             this.fireBullet()
             this.sound.play('gunshot')
         }
@@ -78,9 +82,9 @@ class Play extends Phaser.Scene{
         //have the player fire with f in the update and call on this function 
         //create a bullet with the projectile class and then add a collider
         //add in a flag variable for the bullet to make sure you can't just spam the bullet 
-        this.bullet = new Projectile(this, this.player.x, this.player.y, 'bullet')
+        this.bullet = new Projectile(this, this.player.x + 43, this.player.y-20, 'bullet').setScale(0.5)
         //this.bullet = new Projectile(this, this.player.x, this.player.y, 'bullet')
-        this.bullet.setVelocityX(150)
+        this.bullet.setVelocityX(300)
         //collider for the enemy and the bullet 
         this.physics.add.collider(this.enemy, this.bullet, (enemy, bullet) =>{
             bullet.destroy()
@@ -97,7 +101,7 @@ class Play extends Phaser.Scene{
         //this.flower = new Projectile(this, 400, 400, 'atlas', 'flower.png')
         this.flower = new Projectile(this, this.enemy.x, this.enemy.y, 'flower').setScale(1.5)
         this.flower.setPushable(false)
-        this.flower.setVelocityX(-200)  
+        this.flower.setVelocityX(-300)  
         this.physics.add.collider(this.flower, this.bride, (flower, bride) =>{
             flower.destroy()
             bride.setTint(0xA020F0)

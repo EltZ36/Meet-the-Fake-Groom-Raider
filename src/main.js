@@ -17,7 +17,7 @@ let config = {
 //for the arrow keys and pressing space to start the game
 let game = new Phaser.Game(config)
 //include the mouse click too 
-let keySPACE, keyUP, keyDOWN, keyFire, keyRESET, keyMENU
+let keySPACE, keyUP, keyDOWN, keyFIRE, keyRESET, keyMENU, mouseFIRE
 //set UI sizes
 let borderUISize = game.config.height / 15
 let borderPadding = borderUISize / 3
