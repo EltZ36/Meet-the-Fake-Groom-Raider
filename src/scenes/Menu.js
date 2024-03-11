@@ -28,8 +28,8 @@ class Menu extends Phaser.Scene{
             frames: this.anims.generateFrameNames('atlas', {
                 prefix: 'arrow0',
                 suffix: '.png',
-                start: 1,
-                end: 3,
+                start: 0,
+                end: 2,
             }),
             frameRate: 3,
             repeat: -1
@@ -50,7 +50,8 @@ class Menu extends Phaser.Scene{
             frames: this.anims.generateFrameNames('atlas', {
                 prefix: 'bride0',
                 suffix: '.png',
-                frames: [3,2,1,2],
+                frames: [2,1,0,1],
+                //[2,1,0,1]
             }),
             frameRate: 10,
             repeat: -1
@@ -60,7 +61,7 @@ class Menu extends Phaser.Scene{
             frames: this.anims.generateFrameNames('atlas', {
                 prefix: 'enemy0',
                 suffix: '.png',
-                frames: [1,2,1,2,3,4,3]
+                frames: [0,1,0,1,2,3,2]
             }), 
             frameRate: 10,
             repeat: -1

@@ -31,7 +31,7 @@ class Play extends Phaser.Scene{
         this.highScoreNumber = this.add.bitmapText(350, 120, 'arcadeFont', '000000000', 20)
         this.lifeIcon = this.add.image(595, 110, 'atlas', 'livesFace.png').setScale(3)
         this.livesText = this.add.bitmapText(630, 100, 'arcadeFont', 'X3', 50)
-        this.arrowInstructions = this.add.sprite(390, 390, 'atlas', 'arrow01.png').play('jumpControl')
+        this.arrowInstructions = this.add.sprite(390, 390, 'atlas', 'arrow00.png').play('jumpControl')
         this.jumpInstructions = this.time.addEvent({
             delay: 3000,
             callback: () => {
