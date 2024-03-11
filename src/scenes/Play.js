@@ -24,9 +24,8 @@ class Play extends Phaser.Scene{
         )
         //switch to texture atlas soon 
         //flashing up arrow with the character to indicate moving and then remove it afterwards
-        this.topTitle= this.add.image(400,28, 'atlas', 'topTitle.png').setOrigin(0.5).setScale(0.8)
-        this.titleText = this.add.bitmapText(80, 90, 'arcadeFont', 'GROOM RAIDER', 20)
-        this.titleText.setTint(0xffff00)
+        this.topTitle = this.add.image(400,28, 'atlas', 'topTitle.png').setOrigin(0.5).setScale(0.8)
+        this.titleText = this.add.bitmapText(80, 90, 'redArcadeFont', 'GROOM RAIDER', 20)
         this.highScoreText = this.add.bitmapText(350, 90, 'arcadeFont', 'HIGHSCORE', 20)
         this.currentScoreText = this.add.bitmapText(100, 120, 'arcadeFont', '000000000', 20)
         this.highScoreNumber = this.add.bitmapText(350, 120, 'arcadeFont', '000000000', 20)

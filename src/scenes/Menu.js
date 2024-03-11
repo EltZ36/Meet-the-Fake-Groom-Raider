@@ -16,6 +16,7 @@ class Menu extends Phaser.Scene{
         this.load.audio('jump', './assets/audio/jump.wav')
         //bitmap font from https://www.dafont.com/8-bit-1-6.font#null 
         this.load.bitmapFont('arcadeFont', './assets/font/arcadeFont.png', './assets/font/arcadeFont.xml')
+        this.load.bitmapFont('redArcadeFont', './assets/font/redArcadeFont.png', './assets/font/redArcadeFont.xml')
     }
 
     //start creating the sprites and stuff 
