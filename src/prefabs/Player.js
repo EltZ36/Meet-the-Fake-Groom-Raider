@@ -18,7 +18,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //jumping based on tutorial by https://phasergames.com/how-to-jump-in-phaser-3/  
         //could swap this to += instead of velocity 
         //can change it to 480 instead
-        if(Phaser.Input.Keyboard.JustDown(keyUP) && this.y >= 470){
+        if(Phaser.Input.Keyboard.JustDown(keyUP) && this.y >= 450){
             this.body.setVelocityY(-300)
             this.scene.sound.play('jump')
         }

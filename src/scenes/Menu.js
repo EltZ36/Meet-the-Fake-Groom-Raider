@@ -7,13 +7,6 @@ class Menu extends Phaser.Scene{
     preload(){
         //load images
         this.load.image('flower', './assets/img/flower.png')
-        this.load.image('player', './assets/img/groom.png')
-        this.load.image('enemy', './assets/img/enemy.png')
-        this.load.image('bride',  './assets/img/bride.png')
-        this.load.spritesheet('arrow', './assets/img/arrow.png', {
-            frameWidth: 32,
-            frameHeight: 64
-        })
         this.load.image('bullet', './assets/img/bullet.png')
         this.load.image('ground', './assets/img/ground.png')
         //atlas 
@@ -67,8 +60,7 @@ class Menu extends Phaser.Scene{
             frames: this.anims.generateFrameNames('atlas', {
                 prefix: 'enemy0',
                 suffix: '.png',
-                start: 1,
-                end: 3,
+                frames: [1,2,1,2,3,4,3]
             }), 
             frameRate: 10,
             repeat: -1

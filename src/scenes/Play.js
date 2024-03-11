@@ -10,9 +10,9 @@ class Play extends Phaser.Scene{
         keyFire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
         //sprites needed: bride, player/groom, enemy
         //set the scale of these to be larger later down the line
-        this.player = new Player(this, 400, 500)
-        this.bride = new Bride(this, 200, 480)
-        this.enemy = new Enemy(this, 650, 485).setScale(1.2, 1.2)
+        this.player = new Player(this, 400, 500).setScale(1.5)
+        this.bride = new Bride(this, 200, 448).setScale(1.7)
+        this.enemy = new Enemy(this, 650, 467).setScale(1.7)
         //set the world bounds for this instead of a rectangle. 
         //https://phasergames.com/how-to-jump-in-phaser-3/ 
         this.ground = this.physics.add.sprite(0, 600, 'atlas', 'ground.png')
@@ -23,6 +23,7 @@ class Play extends Phaser.Scene{
         )
         //switch to texture atlas soon 
         //flashing up arrow with the character to indicate moving and then remove it afterwards
+        this.topTitle= this.add.image(400,28, 'atlas', 'topTitle.png').setOrigin(0.5).setScale(0.8)
         this.titleText = this.add.bitmapText(80, 90, 'arcadeFont', 'GROOM RAIDER', 20)
         this.titleText.setTint(0xffff00)
         this.highScoreText = this.add.bitmapText(350, 90, 'arcadeFont', 'HIGHSCORE', 20)
@@ -30,7 +31,7 @@ class Play extends Phaser.Scene{
         this.highScoreNumber = this.add.bitmapText(350, 120, 'arcadeFont', '000000000', 20)
         this.lifeIcon = this.add.image(595, 110, 'atlas', 'livesFace.png').setScale(3)
         this.livesText = this.add.bitmapText(630, 100, 'arcadeFont', 'X3', 50)
-        this.arrowInstructions = this.add.sprite(400, 430, 'atlas', 'arrow.png').play('jumpControl')
+        this.arrowInstructions = this.add.sprite(390, 390, 'atlas', 'arrow01.png').play('jumpControl')
         this.jumpInstructions = this.time.addEvent({
             delay: 3000,
             callback: () => {
