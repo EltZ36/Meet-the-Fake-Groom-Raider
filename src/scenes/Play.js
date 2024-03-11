@@ -10,9 +10,9 @@ class Play extends Phaser.Scene{
         keyFire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
         //sprites needed: bride, player/groom, enemy
         //set the scale of these to be larger later down the line
-        this.player = new Player(this, 400, 500).setScale(1.5)
-        this.bride = new Bride(this, 200, 448).setScale(1.7)
-        this.enemy = new Enemy(this, 650, 467).setScale(1.7)
+        this.player = new Player(this, 400, 500).setScale(1.2)
+        this.bride = new Bride(this, 200, 458).setScale(1.5)
+        this.enemy = new Enemy(this, 670, 473).setScale(1.5)
         //set the world bounds for this instead of a rectangle. 
         //https://phasergames.com/how-to-jump-in-phaser-3/ 
         this.ground = this.physics.add.sprite(0, 600, 'atlas', 'ground.png')
@@ -33,7 +33,7 @@ class Play extends Phaser.Scene{
         this.livesText = this.add.bitmapText(630, 100, 'arcadeFont', 'X3', 50)
         this.arrowInstructions = this.add.sprite(390, 390, 'atlas', 'arrow00.png').play('jumpControl')
         this.jumpInstructions = this.time.addEvent({
-            delay: 3000,
+            delay: 6000,
             callback: () => {
                 this.arrowInstructions.destroy()
             },
@@ -41,9 +41,9 @@ class Play extends Phaser.Scene{
         })
         //grader mode for this as I plan to make this much faster 
         this.throwTimer = this.time.addEvent({
-            delay: 3000,
+            delay: 3500,
             callback: () => {
-                //this.throwFlower()
+                this.throwFlower()
             },
             repeat: -1
         })
@@ -80,7 +80,7 @@ class Play extends Phaser.Scene{
         //add in a flag variable for the bullet to make sure you can't just spam the bullet 
         this.bullet = new Projectile(this, this.player.x, this.player.y, 'bullet')
         //this.bullet = new Projectile(this, this.player.x, this.player.y, 'bullet')
-        this.bullet.setVelocityX(200)
+        this.bullet.setVelocityX(150)
         //collider for the enemy and the bullet 
         this.physics.add.collider(this.enemy, this.bullet, (enemy, bullet) =>{
             bullet.destroy()
@@ -95,11 +95,19 @@ class Play extends Phaser.Scene{
         //add a delay somehow? 
         //this.flower = new Projectile(this, this.enemy.x, this.enemy.y, 0, 'atlas', 'flower.png')
         //this.flower = new Projectile(this, 400, 400, 'atlas', 'flower.png')
-        this.flower = new Projectile(this, 400, 400, 'flower')
+        this.flower = new Projectile(this, this.enemy.x, this.enemy.y, 'flower').setScale(1.5)
         this.flower.setPushable(false)
         this.flower.setVelocityX(-200)  
         this.physics.add.collider(this.flower, this.bride, (flower, bride) =>{
             flower.destroy()
+            bride.setTint(0xA020F0)
+            this.time.addEvent({
+                delay: 800,
+                callback: () => {
+                    bride.setTint(0xFFFFFF)
+                },
+                repeat: 0
+            })
         })
         //collider for flower and the player 
         this.physics.add.collider(this.flower, this.player, (flower, player) =>{

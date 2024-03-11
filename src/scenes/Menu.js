@@ -34,6 +34,7 @@ class Menu extends Phaser.Scene{
             frameRate: 3,
             repeat: -1
         })
+        //idle animations 
         this.anims.create({
             key: 'playerIdle',
             frames: this.anims.generateFrameNames('atlas', {
@@ -61,14 +62,11 @@ class Menu extends Phaser.Scene{
             frames: this.anims.generateFrameNames('atlas', {
                 prefix: 'enemy0',
                 suffix: '.png',
-                frames: [0,1,0,1,2,3,2]
+                frames: [0,1,0,1,0,1,0,1,0,1,0,1,0,1,2,3,0,1]
             }), 
             frameRate: 10,
             repeat: -1
         })
-        //player idle
-        //bride idle
-        //enemy idle 
         //needs credits as well. 
     
     }
@@ -77,10 +75,5 @@ class Menu extends Phaser.Scene{
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
             this.scene.start('playScene')
         }
-    }
-
-    //if you got hit, reduce the number of lives you have and this goes for both the enemy and the player to make it easier on me
-    gotHit(){
-
     }
 }

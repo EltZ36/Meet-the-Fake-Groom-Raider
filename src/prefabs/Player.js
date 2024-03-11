@@ -9,7 +9,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         this.setCollideWorldBounds(true)
         this.setImmovable(true)
         //this.setPushable(true)
-        this.body.setGravityY(300)
+        this.body.setGravityY(250)
     }
 
     update(){
@@ -19,7 +19,7 @@ class Player extends Phaser.Physics.Arcade.Sprite{
         //could swap this to += instead of velocity 
         //can change it to 480 instead
         if(Phaser.Input.Keyboard.JustDown(keyUP) && this.y >= 450){
-            this.body.setVelocityY(-300)
+            this.body.setVelocityY(-310)
             this.scene.sound.play('jump')
         }
         //have it play the animation 
