@@ -12,8 +12,10 @@ class Play extends Phaser.Scene{
         //sprites needed: bride, player/groom, enemy
         //set the scale of these to be larger later down the line
         this.player = new Player(this, 400, 500).setScale(1.2)
+        this.player.setSize(30)
         this.bride = new Bride(this, 200, 458).setScale(1.5)
         this.enemy = new Enemy(this, 670, 473).setScale(1.5)
+        this.currentScore = 0
         //set the world bounds for this instead of a rectangle. 
         //https://phasergames.com/how-to-jump-in-phaser-3/ 
         this.ground = this.physics.add.sprite(0, 600, 'atlas', 'ground.png')
@@ -30,7 +32,7 @@ class Play extends Phaser.Scene{
         this.currentScoreText = this.add.bitmapText(100, 120, 'arcadeFont', '000000000', 20)
         this.highScoreNumber = this.add.bitmapText(350, 120, 'arcadeFont', '000000000', 20)
         this.lifeIcon = this.add.image(595, 110, 'atlas', 'livesFace.png').setScale(3)
-        this.livesText = this.add.bitmapText(630, 100, 'arcadeFont', 'X3', 50)
+        this.livesText = this.add.bitmapText(630, 100, 'arcadeFont', `X${this.player.getLives()}`, 50)
         this.arrowInstructions = this.add.sprite(390, 390, 'atlas', 'arrow00.png').play('jumpControl')
         this.jumpInstructions = this.time.addEvent({
             delay: 3000,
@@ -49,6 +51,7 @@ class Play extends Phaser.Scene{
         })
         this.player.anims.play('playerIdle')
         this.bride.anims.play('brideIdle')
+        //https://labs.phaser.io/edit.html?src=src\animation\on%20complete%20event.js
         this.enemy.anims.play('enemyIdle')
         //from https://labs.phaser.io/edit.html?src=src/input\pointer\down%20event.js
         this.input.on('pointerdown', function (pointer)
@@ -62,6 +65,7 @@ class Play extends Phaser.Scene{
     update(){
         this.player.update()
         this.bullet_firing = false 
+        this.livesText.setText(`X${this.player.getLives()}`)
         //is there a way to set a timer and make sure that the player can't fire and just spam? 
         //destroy the arrow when the jump button is pressed 
         if(keyUP.isDown){
@@ -88,6 +92,7 @@ class Play extends Phaser.Scene{
         this.physics.add.collider(this.enemy, this.bullet, (enemy, bullet) =>{
             bullet.destroy()
             enemy.setLives(enemy.getLives() - 1)
+            this.currentScoreText.setText(this.currentScore += 50)
         })
     }
 

@@ -23,6 +23,7 @@ class Menu extends Phaser.Scene{
     create(){
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         this.add.bitmapText(50, 200, 'arcadeFont', 'this is the menu. Press space to start the game.', 20)
+        this.add.bitmapText(50, 230, 'arcadeFont', 'Press up arrow to jump and either f or click to fire.', 15)
         //create the arrow animation 
         this.anims.create({
             key: 'jumpControl',
