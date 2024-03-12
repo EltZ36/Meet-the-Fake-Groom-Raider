@@ -33,7 +33,7 @@ class Play extends Phaser.Scene{
         this.highScoreNumber = this.add.bitmapText(350, 120, 'arcadeFont', '000000000', 20)
         this.lifeIcon = this.add.image(595, 110, 'atlas', 'livesFace.png').setScale(3)
         this.livesText = this.add.bitmapText(630, 100, 'arcadeFont', `X${this.player.getLives()}`, 50)
-        this.arrowInstructions = this.add.sprite(390, 390, 'atlas', 'arrow00.png').play('jumpControl')
+        this.arrowInstructions = this.add.sprite(393, 400, 'atlas', 'arrow00.png').play('jumpControl')
         this.jumpInstructions = this.time.addEvent({
             delay: 3000,
             callback: () => {
@@ -92,7 +92,7 @@ class Play extends Phaser.Scene{
         this.physics.add.collider(this.enemy, this.bullet, (enemy, bullet) =>{
             bullet.destroy()
             enemy.setLives(enemy.getLives() - 1)
-            this.currentScoreText.setText(this.currentScore += 50)
+            this.currentScoreText.setText(this.addLeadingZeros(this.currentScore += 50))
         })
     }
 
@@ -128,4 +128,10 @@ class Play extends Phaser.Scene{
     /*cutscene(){
 
     }*/ 
+    //add leading zeros to the score with a simple string conversion
+    addLeadingZeros(number){
+        let length_difference = 9 - number.toString().length  
+        let concat_string = '0'.repeat(length_difference) + number.toString()   
+        return concat_string
+    }
 }
