@@ -24,6 +24,12 @@ class Play extends Phaser.Scene{
             this.player,
             this.ground
         )
+        this.physics.add.collider(
+            this.player, 
+            this.enemy, (enemy) =>{
+                enemy.setTexture('atlas', 'knifeSet.png')
+            }
+        )
         //switch to texture atlas soon 
         //flashing up arrow with the character to indicate moving and then remove it afterwards
         this.topTitle = this.add.image(400,28, 'atlas', 'topTitle.png').setOrigin(0.5).setScale(0.8)
@@ -45,7 +51,7 @@ class Play extends Phaser.Scene{
         this.throwTimer = this.time.addEvent({
             delay: 2800,
             callback: () => {
-                this.throwFlower()
+                //this.throwFlower()
             },
             repeat: -1
         })
@@ -53,6 +59,9 @@ class Play extends Phaser.Scene{
         this.bride.anims.play('brideIdle')
         //https://labs.phaser.io/edit.html?src=src\animation\on%20complete%20event.js
         this.enemy.anims.play('enemyIdle')
+        this.enemy.on('animationrepeat', function () {
+            this.throwFlower()
+        }, this);
         //from https://labs.phaser.io/edit.html?src=src/input\pointer\down%20event.js
         this.input.on('pointerdown', function (pointer)
         {
@@ -76,7 +85,9 @@ class Play extends Phaser.Scene{
             this.sound.play('gunshot')
         }
         if(this.enemy.getLives() == 0 || this.player.getLives() == 0){
-            this.scene.start('gameOverScene')
+            this.enemy.stop()
+            this.enemy.setTexture('atlas', 'present00.png')
+            //this.scene.start('gameOverScene')
         }
     }
 
@@ -102,7 +113,6 @@ class Play extends Phaser.Scene{
         //collider for bride and player/groom
         //add a delay somehow? 
         //this.flower = new Projectile(this, this.enemy.x, this.enemy.y, 0, 'atlas', 'flower.png')
-        //this.flower = new Projectile(this, 400, 400, 'atlas', 'flower.png')
         this.flower = new Projectile(this, this.enemy.x, this.enemy.y, 'flower').setScale(1.5)
         this.flower.setPushable(false)
         this.flower.setVelocityX(-300)  

@@ -192,9 +192,57 @@
         "y": 0.5
       }
     },
-    "bride00.png": {
+    "butler02.png": {
       "frame": {
         "x": 1290,
+        "y": 138,
+        "w": 59,
+        "h": 75
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 12,
+        "y": 1,
+        "w": 59,
+        "h": 75
+      },
+      "sourceSize": {
+        "w": 76,
+        "h": 76
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "butler03.png": {
+      "frame": {
+        "x": 1218,
+        "y": 210,
+        "w": 59,
+        "h": 75
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 12,
+        "y": 1,
+        "w": 59,
+        "h": 75
+      },
+      "sourceSize": {
+        "w": 76,
+        "h": 76
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "bride00.png": {
+      "frame": {
+        "x": 1349,
         "y": 138,
         "w": 50,
         "h": 67
@@ -218,7 +266,7 @@
     },
     "bride01.png": {
       "frame": {
-        "x": 1340,
+        "x": 1399,
         "y": 138,
         "w": 50,
         "h": 67
@@ -242,7 +290,7 @@
     },
     "enemy00.png": {
       "frame": {
-        "x": 1390,
+        "x": 1449,
         "y": 138,
         "w": 50,
         "h": 66
@@ -266,7 +314,7 @@
     },
     "enemy01.png": {
       "frame": {
-        "x": 1440,
+        "x": 1499,
         "y": 138,
         "w": 50,
         "h": 66
@@ -288,10 +336,58 @@
         "y": 0.5
       }
     },
+    "butler00.png": {
+      "frame": {
+        "x": 1549,
+        "y": 138,
+        "w": 44,
+        "h": 72
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 27,
+        "y": 4,
+        "w": 44,
+        "h": 72
+      },
+      "sourceSize": {
+        "w": 76,
+        "h": 76
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "butler01.png": {
+      "frame": {
+        "x": 1449,
+        "y": 204,
+        "w": 44,
+        "h": 72
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 27,
+        "y": 4,
+        "w": 44,
+        "h": 72
+      },
+      "sourceSize": {
+        "w": 76,
+        "h": 76
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
     "flower.png": {
       "frame": {
-        "x": 1490,
-        "y": 138,
+        "x": 1493,
+        "y": 204,
         "w": 25,
         "h": 14
       },
@@ -312,24 +408,24 @@
         "y": 0.5
       }
     },
-    "present01.png": {
+    "wine.png": {
       "frame": {
-        "x": 1515,
-        "y": 138,
-        "w": 24,
-        "h": 24
+        "x": 1518,
+        "y": 204,
+        "w": 25,
+        "h": 8
       },
       "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
-        "x": 4,
-        "y": 6,
-        "w": 24,
-        "h": 24
+        "x": 1,
+        "y": 3,
+        "w": 25,
+        "h": 8
       },
       "sourceSize": {
-        "w": 32,
-        "h": 32
+        "w": 26,
+        "h": 14
       },
       "pivot": {
         "x": 0.5,
@@ -338,22 +434,46 @@
     },
     "present00.png": {
       "frame": {
-        "x": 1490,
-        "y": 152,
+        "x": 1349,
+        "y": 205,
         "w": 24,
-        "h": 19
+        "h": 24
       },
       "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
-        "x": 4,
-        "y": 0,
+        "x": 39,
+        "y": 24,
         "w": 24,
-        "h": 19
+        "h": 24
       },
       "sourceSize": {
-        "w": 32,
-        "h": 32
+        "w": 76,
+        "h": 76
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "present01.png": {
+      "frame": {
+        "x": 1277,
+        "y": 213,
+        "w": 24,
+        "h": 24
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 39,
+        "y": 52,
+        "w": 24,
+        "h": 24
+      },
+      "sourceSize": {
+        "w": 76,
+        "h": 76
       },
       "pivot": {
         "x": 0.5,
@@ -362,8 +482,8 @@
     },
     "bullet.png": {
       "frame": {
-        "x": 1539,
-        "y": 138,
+        "x": 1301,
+        "y": 213,
         "w": 23,
         "h": 12
       },
@@ -386,8 +506,8 @@
     },
     "livesFace.png": {
       "frame": {
-        "x": 1562,
-        "y": 138,
+        "x": 1324,
+        "y": 213,
         "w": 20,
         "h": 19
       },
@@ -410,8 +530,8 @@
     },
     "arrow00.png": {
       "frame": {
-        "x": 1539,
-        "y": 150,
+        "x": 1301,
+        "y": 225,
         "w": 16,
         "h": 31
       },
@@ -434,8 +554,8 @@
     },
     "arrow01.png": {
       "frame": {
-        "x": 1514,
-        "y": 162,
+        "x": 1277,
+        "y": 237,
         "w": 16,
         "h": 31
       },
@@ -458,8 +578,8 @@
     },
     "arrow02.png": {
       "frame": {
-        "x": 1539,
-        "y": 150,
+        "x": 1301,
+        "y": 225,
         "w": 16,
         "h": 31
       },
@@ -488,7 +608,7 @@
     "format": "RGBA8888",
     "size": {
       "w": 2047,
-      "h": 214
+      "h": 285
     },
     "scale": 1
   }
