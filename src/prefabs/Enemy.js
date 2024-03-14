@@ -13,10 +13,21 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     }
 
     setLives(lives){
-        this.lives = lives 
+        if(this.lives < 0){
+            this.lives = 0
+        }
+        else{
+            this.lives = lives 
+        }
     }
 
     getLives(){
         return this.lives 
+    }
+
+    reset(){
+        this.x = 900
+        this.y = 473
+        this.setVelocityX(0)
     }
 }

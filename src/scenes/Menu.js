@@ -8,7 +8,6 @@ class Menu extends Phaser.Scene{
         //load images
         this.load.image('flower', './assets/img/flower.png')
         this.load.image('bullet', './assets/img/bullet.png')
-        this.load.image('ground', './assets/img/ground.png')
         //atlas 
         this.load.atlas('atlas', './assets/img/allAssets.png', './assets/img/allAssets.json')
         //audio 
@@ -70,7 +69,6 @@ class Menu extends Phaser.Scene{
             repeat: -1
         })
         //needs credits as well. 
-    
     }
     
     update(){

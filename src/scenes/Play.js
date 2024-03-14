@@ -11,10 +11,10 @@ class Play extends Phaser.Scene{
         mouseFIRE = this.input.activePointer
         //sprites needed: bride, player/groom, enemy
         //set the scale of these to be larger later down the line
-        this.player = new Player(this, 400, 500).setScale(1.2)
-        this.player.setSize(30)
+        this.player = new Player(this, 400, 500).setScale(1.2).setSize(30)
         this.bride = new Bride(this, 200, 458).setScale(1.5)
-        this.enemy = new Enemy(this, 670, 473).setScale(1.5)
+        this.enemy = new Enemy(this, 750, 473).setScale(1.5)
+        this.knife = this.add.image(400, 310, 'atlas', 'knifeSet.png').setVisible(false).setScale(2.5)
         this.currentScore = 0
         //set the world bounds for this instead of a rectangle. 
         //https://phasergames.com/how-to-jump-in-phaser-3/ 
@@ -26,13 +26,22 @@ class Play extends Phaser.Scene{
         )
         this.physics.add.collider(
             this.player, 
-            this.enemy, (enemy) =>{
-                enemy.setTexture('atlas', 'knifeSet.png')
+            this.enemy, 
+            (player, enemy) =>{
+                enemy.setVelocityX(0)
+                enemy.reset()
+                this.knifeText1.setVisible(true)
+                this.knifeText2.setVisible(true)
+                this.knife.setVisible(true)
             }
         )
         //switch to texture atlas soon 
         //flashing up arrow with the character to indicate moving and then remove it afterwards
         this.topTitle = this.add.image(400,28, 'atlas', 'topTitle.png').setOrigin(0.5).setScale(0.8)
+        //knife text 
+        this.knifeText1 = this.add.bitmapText(230, 190, 'arcadeFont', 'STEAK KNIFE SET', 30).setVisible(false)
+        this.knifeText2 = this.add.bitmapText(230, 220, 'arcadeFont', 'WITH GIFT RECIPT!', 30).setVisible(false)
+        //title, high score, and curent score text 
         this.titleText = this.add.bitmapText(80, 90, 'redArcadeFont', 'GROOM RAIDER', 20)
         this.highScoreText = this.add.bitmapText(350, 90, 'arcadeFont', 'HIGHSCORE', 20)
         this.currentScoreText = this.add.bitmapText(100, 120, 'arcadeFont', '000000000', 20)
@@ -48,13 +57,13 @@ class Play extends Phaser.Scene{
             repeat: -1
         })
         //grader mode for this as I plan to make this much faster 
-        this.throwTimer = this.time.addEvent({
+        /*this.throwTimer = this.time.addEvent({
             delay: 2800,
             callback: () => {
                 //this.throwFlower()
             },
             repeat: -1
-        })
+        })*/ 
         this.player.anims.play('playerIdle')
         this.bride.anims.play('brideIdle')
         //https://labs.phaser.io/edit.html?src=src\animation\on%20complete%20event.js
@@ -68,12 +77,24 @@ class Play extends Phaser.Scene{
             this.fireBullet()
             this.sound.play('gunshot')
         }, this); 
+        let enemystartTween = this.tweens.chain({
+            targets: this.enemy,
+            loop: 0,
+            tweens: [
+                {
+                    x: this.enemy.x - 70,
+                    duration: 300,
+                    ease: 'Linear'
+                }
+            ]
+        })
         //add in the arcade style text and whatnot to https://www.dafont.com/8-bit-1-6.font#nullhttps://www.dafont.com/8-bit-1-6.font#nullthis 
+        this.enemyPaused = false 
     }
 
     update(){
         this.player.update()
-        this.bullet_firing = false 
+        this.enemy.update()
         this.livesText.setText(`X${this.player.getLives()}`)
         //is there a way to set a timer and make sure that the player can't fire and just spam? 
         //destroy the arrow when the jump button is pressed 
@@ -84,9 +105,20 @@ class Play extends Phaser.Scene{
             this.fireBullet()
             this.sound.play('gunshot')
         }
-        if(this.enemy.getLives() == 0 || this.player.getLives() == 0){
-            this.enemy.stop()
-            this.enemy.setTexture('atlas', 'present00.png')
+        if(this.enemy.lives == 0 && this.enemyPaused == false){
+            this.enemy.setTexture('atlas', 'present01.png')
+            this.enemy.setVelocityX(-100)
+            this.enemy.anims.pause()
+            this.enemyPaused = true 
+            /*this.showKnifeTimer = this.time.addEvent({
+                delay: 1000,
+                callback: () => {
+                    this.knife.setVisible(true)
+                },
+                repeat: 0
+            })*/ 
+        }
+        if(this.player.getLives() == 0){
             //this.scene.start('gameOverScene')
         }
     }
