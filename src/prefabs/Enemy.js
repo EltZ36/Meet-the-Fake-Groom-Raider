@@ -26,8 +26,16 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     }
 
     reset(){
+        this.setLives(1)
+        this.setVelocityX(0)
         this.x = 900
         this.y = 473
-        this.setVelocityX(0)
+        this.setTexture('atlas', 'enemy00.png')
+        this.animationTimer = this.scene.time.addEvent({
+            delay: 4000, 
+            callback: () => {
+            this.anims.resume()
+            }
+        })
     }
 }

@@ -11,36 +11,18 @@ class Play extends Phaser.Scene{
         mouseFIRE = this.input.activePointer
         //sprites needed: bride, player/groom, enemy
         //set the scale of these to be larger later down the line
+        //move the player and the bride back as well as adding in tweens 
         this.player = new Player(this, 400, 500).setScale(1.2).setSize(30)
         this.bride = new Bride(this, 200, 458).setScale(1.5)
-        this.enemy = new Enemy(this, 750, 473).setScale(1.5)
-        this.knife = this.add.image(400, 310, 'atlas', 'knifeSet.png').setVisible(false).setScale(2.5)
+        this.enemy = new Enemy(this, 900, 473).setScale(1.5)
+        this.gift = this.add.image(400, 310, 'atlas', 'knifeSet.png').setVisible(false).setScale(2.5)
         this.currentScore = 0
-        //set the world bounds for this instead of a rectangle. 
-        //https://phasergames.com/how-to-jump-in-phaser-3/ 
-        this.ground = this.physics.add.sprite(0, 600, 'atlas', 'ground.png')
-        this.ground.setImmovable()
-        this.physics.add.collider(
-            this.player,
-            this.ground
-        )
-        this.physics.add.collider(
-            this.player, 
-            this.enemy, 
-            (player, enemy) =>{
-                enemy.setVelocityX(0)
-                enemy.reset()
-                this.knifeText1.setVisible(true)
-                this.knifeText2.setVisible(true)
-                this.knife.setVisible(true)
-            }
-        )
         //switch to texture atlas soon 
         //flashing up arrow with the character to indicate moving and then remove it afterwards
         this.topTitle = this.add.image(400,28, 'atlas', 'topTitle.png').setOrigin(0.5).setScale(0.8)
         //knife text 
-        this.knifeText1 = this.add.bitmapText(230, 190, 'arcadeFont', 'STEAK KNIFE SET', 30).setVisible(false)
-        this.knifeText2 = this.add.bitmapText(230, 220, 'arcadeFont', 'WITH GIFT RECIPT!', 30).setVisible(false)
+        this.giftTopText = this.add.bitmapText(230, 190, 'arcadeFont', 'STEAK KNIFE SET', 30).setVisible(false)
+        this.giftBotText = this.add.bitmapText(230, 220, 'arcadeFont', 'WITH GIFT RECIPT!', 30).setVisible(false)
         //title, high score, and curent score text 
         this.titleText = this.add.bitmapText(80, 90, 'redArcadeFont', 'GROOM RAIDER', 20)
         this.highScoreText = this.add.bitmapText(350, 90, 'arcadeFont', 'HIGHSCORE', 20)
@@ -82,13 +64,28 @@ class Play extends Phaser.Scene{
             loop: 0,
             tweens: [
                 {
-                    x: this.enemy.x - 70,
+                    x: this.enemy.x - 190,
                     duration: 300,
                     ease: 'Linear'
                 }
             ]
         })
         //add in the arcade style text and whatnot to https://www.dafont.com/8-bit-1-6.font#nullhttps://www.dafont.com/8-bit-1-6.font#nullthis 
+        //set the world bounds for this instead of a rectangle. 
+        //https://phasergames.com/how-to-jump-in-phaser-3/ 
+        this.ground = this.physics.add.sprite(0, 600, 'atlas', 'ground.png')
+        this.ground.setImmovable()
+        this.physics.add.collider(
+            this.player,
+            this.ground
+        )
+        this.physics.add.collider(
+            this.player, 
+            this.enemy, 
+            this.reset,
+            null,
+            this
+        )
         this.enemyPaused = false 
     }
 
@@ -107,7 +104,7 @@ class Play extends Phaser.Scene{
         }
         if(this.enemy.lives == 0 && this.enemyPaused == false){
             this.enemy.setTexture('atlas', 'present01.png')
-            this.enemy.setVelocityX(-100)
+            this.enemy.setVelocityX(-150)
             this.enemy.anims.pause()
             this.enemyPaused = true 
             /*this.showKnifeTimer = this.time.addEvent({
@@ -175,5 +172,35 @@ class Play extends Phaser.Scene{
         let length_difference = 9 - number.toString().length  
         let concat_string = '0'.repeat(length_difference) + number.toString()   
         return concat_string
+    }
+
+    //enemy reset 
+    reset(player, enemy){
+        this.enemyPaused = false 
+        enemy.setVelocityX(0)
+        this.gift.setVisible(true)
+        this.giftTopText.setVisible(true)
+        this.giftBotText.setVisible(true)
+        enemy.reset()
+        this.removeGiftTimer = this.time.addEvent({
+            delay: 4000, 
+            callback: () => {
+                this.gift.setVisible(false)
+                this.giftTopText.setVisible(false)
+                this.giftBotText.setVisible(false)
+                let enemystartTween = this.tweens.chain({
+                    targets: this.enemy,
+                    loop: 0,
+                    tweens: [
+                        {
+                            x: this.enemy.x - 190,
+                            duration: 200,
+                            ease: 'Linear'
+                        }
+                    ]
+                })
+            }
+        })
+        //this.enemy.anims.resume()
     }
 }
