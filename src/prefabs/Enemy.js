@@ -7,6 +7,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         this.setImmovable()
         this.scene = scene 
         this.lives = 1
+        this.firstDeath = false 
     }
 
     update(){

@@ -12,8 +12,8 @@ class Play extends Phaser.Scene{
         //sprites needed: bride, player/groom, enemy
         //set the scale of these to be larger later down the line
         //move the player and the bride back as well as adding in tweens 
-        this.player = new Player(this, 400, 500).setScale(1.2).setSize(30)
-        this.bride = new Bride(this, 200, 458).setScale(1.5)
+        this.player = new Player(this, 360, 500).setScale(1.2).setSize(30)
+        this.bride = new Bride(this, 180, 458).setScale(1.5)
         this.enemy = new Enemy(this, 900, 473).setScale(1.5)
         this.gift = this.add.image(400, 310, 'atlas', 'knifeSet.png').setVisible(false).setScale(2.5)
         this.currentScore = 0
@@ -30,7 +30,7 @@ class Play extends Phaser.Scene{
         this.highScoreNumber = this.add.bitmapText(350, 120, 'arcadeFont', '000000000', 20)
         this.lifeIcon = this.add.image(595, 110, 'atlas', 'livesFace.png').setScale(3)
         this.livesText = this.add.bitmapText(630, 100, 'arcadeFont', `X${this.player.getLives()}`, 50)
-        this.arrowInstructions = this.add.sprite(393, 400, 'atlas', 'arrow00.png').play('jumpControl')
+        this.arrowInstructions = this.add.sprite(355, 400, 'atlas', 'arrow00.png').play('jumpControl')
         this.jumpInstructions = this.time.addEvent({
             delay: 3000,
             callback: () => {
@@ -87,6 +87,18 @@ class Play extends Phaser.Scene{
             this
         )
         this.enemyPaused = false 
+        this.enemyDead = false 
+        this.settings = {
+            targets: this.enemy,
+            loop: 0,
+            tweens: [
+                {
+                    x: this.enemy.x - 190,
+                    duration: 200,
+                    ease: 'Linear'
+                }
+            ]
+        }
     }
 
     update(){
@@ -157,10 +169,7 @@ class Play extends Phaser.Scene{
             })
         })
         //collider for flower and the player 
-        this.physics.add.collider(this.flower, this.player, (flower, player) =>{
-            flower.destroy() 
-            player.setLives(player.getLives() - 1)
-        }) 
+        this.physics.add.collider(this.flower, this.player, this.flowerCollision, null, this)  
     }
 
     //maybe have a move character function for it? But it only needs to run once in the entire scene and it needs to be done every time the scene is called
@@ -174,13 +183,21 @@ class Play extends Phaser.Scene{
         return concat_string
     }
 
+    flowerCollision(flower, player){
+        flower.destroy()
+        //don't decrement the lives of the flower afterwards 
+        if(this.enemy.getLives() != 0){
+            player.setLives(this.player.getLives() - 1)
+        }
+    }
+
     //enemy reset 
     reset(player, enemy){
         this.enemyPaused = false 
-        enemy.setVelocityX(0)
         this.gift.setVisible(true)
         this.giftTopText.setVisible(true)
         this.giftBotText.setVisible(true)
+        enemy.anims.stop()
         enemy.reset()
         this.removeGiftTimer = this.time.addEvent({
             delay: 4000, 
@@ -188,17 +205,8 @@ class Play extends Phaser.Scene{
                 this.gift.setVisible(false)
                 this.giftTopText.setVisible(false)
                 this.giftBotText.setVisible(false)
-                let enemystartTween = this.tweens.chain({
-                    targets: this.enemy,
-                    loop: 0,
-                    tweens: [
-                        {
-                            x: this.enemy.x - 190,
-                            duration: 200,
-                            ease: 'Linear'
-                        }
-                    ]
-                })
+                //find a way to restart the tween and make it more clean 
+                let enemystartTween = this.tweens.chain(this.settings)
             }
         })
         //this.enemy.anims.resume()
