@@ -21,6 +21,9 @@ class Menu extends Phaser.Scene{
     //start creating the sprites and stuff 
     create(){
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        //add in the menu image
+        //add in the button over the image and make it interactive
+        //add in the x button and make it interactive too. set it to not be visible when the other image is up. 
         this.add.bitmapText(50, 200, 'arcadeFont', 'this is the menu. Press space to start the game.', 20)
         this.add.bitmapText(50, 230, 'arcadeFont', 'Press up arrow to jump and either f or click to fire.', 15)
         //create the arrow animation 
