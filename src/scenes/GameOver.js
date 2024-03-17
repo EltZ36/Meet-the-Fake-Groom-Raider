@@ -6,7 +6,10 @@ class GameOver extends Phaser.Scene{
     create(){
         keyRESET = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R)
         keyMENU = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M)
-        this.add.bitmapText(200, 200, 'arcadeFont', 'Press M or R to restart',10)
+        let endScreen = this.add.image(0,0,'atlas', 'GameOver.png').setOrigin(0, 0)
+        let restartButton = this.add.image(230, 550, 'atlas', 'restartButton.png')
+        let menuButton = this.add.image(600, 540, 'atlas', 'menuButton.png')
+        //this.oninput 
     }
 
     update(){

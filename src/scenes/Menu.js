@@ -22,10 +22,48 @@ class Menu extends Phaser.Scene{
     create(){
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         //add in the menu image
+        let titleScreen = this.add.image(-50,-20, 'atlas', 'titleScreen.png').setOrigin(0,0).setVisible(true)
+        let controlsScreen = this.add.image(0, 0, 'atlas', 'controlsScreen.png').setOrigin(0,0).setVisible(false)
+        let creditsScreen = this.add.image(0,0, 'atlas', 'creditsScreen.png').setOrigin(0,0).setVisible(false)
         //add in the button over the image and make it interactive
-        //add in the x button and make it interactive too. set it to not be visible when the other image is up. 
-        this.add.bitmapText(50, 200, 'arcadeFont', 'this is the menu. Press space to start the game.', 20)
-        this.add.bitmapText(50, 230, 'arcadeFont', 'Press up arrow to jump and either f or click to fire.', 15)
+        let controlsButton = this.add.image(100, 575, 'atlas', 'controlsButton.png').setScale(0.9).setInteractive(true)
+        let creditsButton = this.add.image(700, 570, 'atlas', 'creditButton.png').setScale(0.9).setInteractive(true)
+        //change the color and make the square more rough 
+        //let controlsExitButton = this.add.image(650, 50, 'atlas', 'exitButton.png').setInteractive(true)
+        let creditsExitButton = this.add.image(670, 90, 'atlas', 'exitButton.png').setInteractive(true).setVisible(false)
+        /*controlsButton.on('', function(){
+            controlsButton.setVisible(false)
+            creditsButton.setVisible(false)
+            controlExitButton.setVisible(true)
+            //make credits button and control button uninteractable 
+            controlsScreen.setVisible(true)
+            titleScreen.setVisible(false)
+        })
+        creditsButton.on('', function{
+            controlsButton.setVisible(false)
+            creditsButton.setVisible(false)
+            creditsExitButton.setVisible(true)
+            //make credits button and control button uninteractable 
+            creditsScreen.setVisible(true)
+            titleScreen.setVisible(false)
+        })
+        controlsExitButton.on('pointerDown', function{
+            controlsButton.setVisible(true)
+            creditsButton.setVisible(true)
+            creditsExitButton.setVisible(false)
+            controlsScreen.setVisible(false)
+            //make the credits and control button uninteractable 
+            titleScreen.setVisible(true)
+        })
+        creditsExitButton.on('pointerDown', function{
+            controlsButton.setVisible(true)
+            creditsButton.setVisible(true)
+            controlsExitButton.setVisible(false)
+            creditsScreen.setVisible(false)
+            //make the credits and control button uninteractable 
+            titleScreen.setVisible(true)
+        }
+        */ 
         //create the arrow animation 
         this.anims.create({
             key: 'jumpControl',
@@ -76,7 +114,7 @@ class Menu extends Phaser.Scene{
     
     update(){
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-            this.scene.start('playScene')
+            this.scene.start('gameOverScene')
         }
     }
 }
