@@ -168,24 +168,24 @@
         "y": 0.5
       }
     },
-    "exitButton.png": {
+    "oldMan02.png": {
       "frame": {
         "x": 1980,
         "y": 157,
-        "w": 64,
-        "h": 64
+        "w": 66,
+        "h": 71
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 64,
-        "h": 64
+        "x": 5,
+        "y": 5,
+        "w": 66,
+        "h": 71
       },
       "sourceSize": {
-        "w": 64,
-        "h": 64
+        "w": 76,
+        "h": 76
       },
       "pivot": {
         "x": 0.5,
@@ -240,30 +240,6 @@
         "y": 0.5
       }
     },
-    "butler02.png": {
-      "frame": {
-        "x": 1980,
-        "y": 221,
-        "w": 59,
-        "h": 75
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 12,
-        "y": 1,
-        "w": 59,
-        "h": 75
-      },
-      "sourceSize": {
-        "w": 76,
-        "h": 76
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
     "creditButton.png": {
       "frame": {
         "x": 1800,
@@ -288,24 +264,48 @@
         "y": 0.5
       }
     },
-    "butler03.png": {
+    "oldMan03.png": {
       "frame": {
         "x": 1980,
-        "y": 296,
-        "w": 59,
-        "h": 75
+        "y": 228,
+        "w": 66,
+        "h": 71
       },
       "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
-        "x": 12,
-        "y": 1,
-        "w": 59,
-        "h": 75
+        "x": 5,
+        "y": 5,
+        "w": 66,
+        "h": 71
       },
       "sourceSize": {
         "w": 76,
         "h": 76
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "exitButton.png": {
+      "frame": {
+        "x": 1980,
+        "y": 299,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
       },
       "pivot": {
         "x": 0.5,
@@ -336,24 +336,24 @@
         "y": 0.5
       }
     },
-    "bride00.png": {
+    "butler02.png": {
       "frame": {
         "x": 1980,
-        "y": 371,
-        "w": 50,
-        "h": 67
+        "y": 363,
+        "w": 59,
+        "h": 75
       },
       "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
-        "x": 6,
-        "y": 31,
-        "w": 50,
-        "h": 67
+        "x": 12,
+        "y": 1,
+        "w": 59,
+        "h": 75
       },
       "sourceSize": {
-        "w": 64,
-        "h": 98
+        "w": 76,
+        "h": 76
       },
       "pivot": {
         "x": 0.5,
@@ -384,72 +384,24 @@
         "y": 0.5
       }
     },
-    "arrow00.png": {
-      "frame": {
-        "x": 2030,
-        "y": 371,
-        "w": 16,
-        "h": 31
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 8,
-        "y": 16,
-        "w": 16,
-        "h": 31
-      },
-      "sourceSize": {
-        "w": 32,
-        "h": 64
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    "arrow01.png": {
-      "frame": {
-        "x": 2030,
-        "y": 402,
-        "w": 16,
-        "h": 31
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 8,
-        "y": 16,
-        "w": 16,
-        "h": 31
-      },
-      "sourceSize": {
-        "w": 32,
-        "h": 64
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    "bride01.png": {
+    "butler03.png": {
       "frame": {
         "x": 1980,
         "y": 438,
-        "w": 50,
-        "h": 67
+        "w": 59,
+        "h": 75
       },
       "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
-        "x": 6,
-        "y": 31,
-        "w": 50,
-        "h": 67
+        "x": 12,
+        "y": 1,
+        "w": 59,
+        "h": 75
       },
       "sourceSize": {
-        "w": 64,
-        "h": 98
+        "w": 76,
+        "h": 76
       },
       "pivot": {
         "x": 0.5,
@@ -504,20 +456,20 @@
         "y": 0.5
       }
     },
-    "enemy00.png": {
+    "oldMan00.png": {
       "frame": {
         "x": 1979,
-        "y": 505,
-        "w": 50,
-        "h": 66
+        "y": 513,
+        "w": 59,
+        "h": 71
       },
       "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
-        "x": 26,
-        "y": 10,
-        "w": 50,
-        "h": 66
+        "x": 12,
+        "y": 5,
+        "w": 59,
+        "h": 71
       },
       "sourceSize": {
         "w": 76,
@@ -552,20 +504,20 @@
         "y": 0.5
       }
     },
-    "enemy01.png": {
+    "oldMan01.png": {
       "frame": {
         "x": 1874,
         "y": 568,
-        "w": 50,
-        "h": 66
+        "w": 59,
+        "h": 71
       },
       "rotated": false,
       "trimmed": true,
       "spriteSourceSize": {
-        "x": 26,
-        "y": 10,
-        "w": 50,
-        "h": 66
+        "x": 12,
+        "y": 5,
+        "w": 59,
+        "h": 71
       },
       "sourceSize": {
         "w": 76,
@@ -578,7 +530,7 @@
     },
     "butler01.png": {
       "frame": {
-        "x": 1924,
+        "x": 1933,
         "y": 570,
         "w": 44,
         "h": 72
@@ -600,10 +552,34 @@
         "y": 0.5
       }
     },
+    "bride00.png": {
+      "frame": {
+        "x": 1874,
+        "y": 639,
+        "w": 50,
+        "h": 67
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 6,
+        "y": 31,
+        "w": 50,
+        "h": 67
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 98
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
     "enemy02.png": {
       "frame": {
-        "x": 1968,
-        "y": 571,
+        "x": 1800,
+        "y": 640,
         "w": 72,
         "h": 76
       },
@@ -624,24 +600,72 @@
         "y": 0.5
       }
     },
-    "spoon.png": {
+    "bride01.png": {
       "frame": {
-        "x": 1874,
-        "y": 634,
-        "w": 34,
-        "h": 9
+        "x": 1977,
+        "y": 584,
+        "w": 50,
+        "h": 67
       },
       "rotated": false,
-      "trimmed": false,
+      "trimmed": true,
       "spriteSourceSize": {
-        "x": 0,
-        "y": 0,
-        "w": 34,
-        "h": 9
+        "x": 6,
+        "y": 31,
+        "w": 50,
+        "h": 67
       },
       "sourceSize": {
-        "w": 34,
-        "h": 9
+        "w": 64,
+        "h": 98
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "enemy00.png": {
+      "frame": {
+        "x": 1924,
+        "y": 642,
+        "w": 50,
+        "h": 66
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 26,
+        "y": 10,
+        "w": 50,
+        "h": 66
+      },
+      "sourceSize": {
+        "w": 76,
+        "h": 76
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "enemy01.png": {
+      "frame": {
+        "x": 1872,
+        "y": 706,
+        "w": 50,
+        "h": 66
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 26,
+        "y": 10,
+        "w": 50,
+        "h": 66
+      },
+      "sourceSize": {
+        "w": 76,
+        "h": 76
       },
       "pivot": {
         "x": 0.5,
@@ -651,7 +675,7 @@
     "enemy03.png": {
       "frame": {
         "x": 1800,
-        "y": 642,
+        "y": 716,
         "w": 72,
         "h": 76
       },
@@ -674,8 +698,8 @@
     },
     "player01.png": {
       "frame": {
-        "x": 1872,
-        "y": 643,
+        "x": 1974,
+        "y": 651,
         "w": 72,
         "h": 72
       },
@@ -696,10 +720,106 @@
         "y": 0.5
       }
     },
+    "arrow00.png": {
+      "frame": {
+        "x": 2027,
+        "y": 584,
+        "w": 16,
+        "h": 31
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 8,
+        "y": 16,
+        "w": 16,
+        "h": 31
+      },
+      "sourceSize": {
+        "w": 32,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "arrow01.png": {
+      "frame": {
+        "x": 2027,
+        "y": 615,
+        "w": 16,
+        "h": 31
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 8,
+        "y": 16,
+        "w": 16,
+        "h": 31
+      },
+      "sourceSize": {
+        "w": 32,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "spoon.png": {
+      "frame": {
+        "x": 1922,
+        "y": 708,
+        "w": 34,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 34,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 34,
+        "h": 9
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "cane.png": {
+      "frame": {
+        "x": 1922,
+        "y": 717,
+        "w": 27,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 27,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 27,
+        "h": 9
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
     "present00.png": {
       "frame": {
-        "x": 1944,
-        "y": 643,
+        "x": 1949,
+        "y": 717,
         "w": 24,
         "h": 24
       },
@@ -722,8 +842,8 @@
     },
     "present01.png": {
       "frame": {
-        "x": 1944,
-        "y": 667,
+        "x": 1922,
+        "y": 726,
         "w": 24,
         "h": 24
       },
@@ -738,30 +858,6 @@
       "sourceSize": {
         "w": 76,
         "h": 76
-      },
-      "pivot": {
-        "x": 0.5,
-        "y": 0.5
-      }
-    },
-    "wine.png": {
-      "frame": {
-        "x": 1968,
-        "y": 647,
-        "w": 25,
-        "h": 8
-      },
-      "rotated": false,
-      "trimmed": true,
-      "spriteSourceSize": {
-        "x": 1,
-        "y": 3,
-        "w": 25,
-        "h": 8
-      },
-      "sourceSize": {
-        "w": 26,
-        "h": 14
       },
       "pivot": {
         "x": 0.5,
@@ -842,8 +938,8 @@
     },
     "arrow02.png": {
       "frame": {
-        "x": 2030,
-        "y": 371,
+        "x": 2027,
+        "y": 584,
         "w": 16,
         "h": 31
       },
