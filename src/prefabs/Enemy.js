@@ -6,18 +6,22 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         scene.physics.add.existing(this)
         this.setImmovable()
         this.scene = scene 
-        this.lives = 1
-        this.deathNumber = 1
-        this.skinNumber = 3
+        this.lives = 3
+        this.deathNumber = 0
+        this.skinNumber = 1
         this.invincible = false 
     }
 
     update(){
         if(this.invincible == true){
             this.setTint(0xFFFF00)
-        }
-        else{
-            this.setTint(0xFFFFFF)
+            this.scene.time.addEvent({
+                delay: 6000,
+                callback: () => {
+                    this.setTint(0xFFFFFF)
+                },
+                repeat: 0
+            })
         }
     }
 
@@ -78,14 +82,13 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     }
 
     reset(){
-        this.setLives(1)
         this.setVelocityX(0)
+        this.setVisible(true)
         this.x = 900
         this.y = 473
         this.setDeathNumber(this.getDeathNumber() + 1)
         var random = Phaser.Math.Between(1, 3)
         this.setSkinNumber(random)
-        console.log(random)
         this.invincible = true 
         this.invincibleTimer = this.scene.time.addEvent({
             delay: 6000, 
