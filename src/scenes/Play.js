@@ -48,28 +48,24 @@ class Play extends Phaser.Scene{
         })*/ 
         this.player.anims.play('playerIdle')
         this.bride.anims.play('brideIdle')
-        //https://labs.phaser.io/edit.html?src=src\animation\on%20complete%20event.js
-        this.enemy.anims.play('enemyIdle')
-        this.enemy.on('animationrepeat', function () {
-            this.throwFlower()
-        }, this);
         //from https://labs.phaser.io/edit.html?src=src/input\pointer\down%20event.js
         this.input.on('pointerdown', function (pointer)
         {
             this.fireBullet()
             this.sound.play('gunshot')
         }, this); 
-        let enemystartTween = this.tweens.chain({
+        this.settings = {
             targets: this.enemy,
             loop: 0,
             tweens: [
                 {
                     x: this.enemy.x - 190,
-                    duration: 300,
+                    duration: 200,
                     ease: 'Linear'
                 }
             ]
-        })
+        }
+        let enemystartTween = this.tweens.chain(this.settings)
         //add in the arcade style text and whatnot to https://www.dafont.com/8-bit-1-6.font#nullhttps://www.dafont.com/8-bit-1-6.font#nullthis 
         //set the world bounds for this instead of a rectangle. 
         //https://phasergames.com/how-to-jump-in-phaser-3/ 
@@ -88,17 +84,16 @@ class Play extends Phaser.Scene{
         )
         this.enemyPaused = false 
         this.enemyDead = false 
-        this.settings = {
-            targets: this.enemy,
-            loop: 0,
-            tweens: [
-                {
-                    x: this.enemy.x - 190,
-                    duration: 200,
-                    ease: 'Linear'
-                }
-            ]
+        if(this.enemy.getSkinNumber() == 2 && this.enemy.getDeathNumber() > 0){
+            this.enemy.anims.play('butlerIdle')
         }
+        else{
+            this.enemy.anims.play('enemyDressIdle')
+        }
+        //https://labs.phaser.io/edit.html?src=src\animation\on%20complete%20event.js
+        this.enemy.on('animationrepeat', function () {
+            this.throwProjectile()
+        }, this);
     }
 
     update(){
@@ -114,18 +109,10 @@ class Play extends Phaser.Scene{
             this.fireBullet()
             this.sound.play('gunshot')
         }
-        if(this.enemy.lives == 0 && this.enemyPaused == false){
+        if(this.enemy.lives == 0){
             this.enemy.setTexture('atlas', 'present01.png')
             this.enemy.setVelocityX(-150)
             this.enemy.anims.pause()
-            this.enemyPaused = true 
-            /*this.showKnifeTimer = this.time.addEvent({
-                delay: 1000,
-                callback: () => {
-                    this.knife.setVisible(true)
-                },
-                repeat: 0
-            })*/ 
         }
         if(this.player.getLives() == 0){
             //this.scene.start('gameOverScene')
@@ -149,16 +136,22 @@ class Play extends Phaser.Scene{
     }
 
     //for the enemy thowing the flower 
-    throwFlower(){
-        //make a new flower and timer for the flowers
-        //collider for bride and player/groom
-        //add a delay somehow? 
-        //this.flower = new Projectile(this, this.enemy.x, this.enemy.y, 0, 'atlas', 'flower.png')
-        this.flower = new Projectile(this, this.enemy.x, this.enemy.y, 'flower').setScale(1.5)
-        this.flower.setPushable(false)
-        this.flower.setVelocityX(-300)  
-        this.physics.add.collider(this.flower, this.bride, (flower, bride) =>{
-            flower.destroy()
+    throwProjectile(){
+        //different skins have different velocities and two more will unlock if the enemy has already been shot
+        if(this.enemy.getSkinNumber() == 2 && this.enemy.getDeathNumber() > 0){
+            this.projectile = new Projectile(this, this.enemy.x, this.enemy.y, 'flower').setScale(1.5)
+        }
+        if(this.enemy.getSkinNumber() == 3 && this.enemy.getDeathNumber() > 0){
+            this.projectile = new Projectile(this, this.enemy.x, this.enemy.y, 'cane').setScale(1.5) 
+        }
+        else{
+            this.projectile = new Projectile(this, this.enemy.x, this.enemy.y, 'flower').setScale(1.5)
+        }
+        //this.projectile = new Projectile(this, this.enemy.x, this.enemy.y, 'flower').setScale(1.5)
+        this.projectile.setPushable(false)
+        this.projectile.setVelocityX(-300)  
+        this.physics.add.collider(this.projectile, this.bride, (projectile, bride) =>{
+            projectile.destroy()
             bride.setTint(0xA020F0)
             this.time.addEvent({
                 delay: 800,
@@ -169,7 +162,7 @@ class Play extends Phaser.Scene{
             })
         })
         //collider for flower and the player 
-        this.physics.add.collider(this.flower, this.player, this.flowerCollision, null, this)  
+        this.physics.add.collider(this.projectile, this.player, this.projectileCollision, null, this)  
     }
 
     //maybe have a move character function for it? But it only needs to run once in the entire scene and it needs to be done every time the scene is called
@@ -183,8 +176,8 @@ class Play extends Phaser.Scene{
         return concat_string
     }
 
-    flowerCollision(flower, player){
-        flower.destroy()
+    projectileCollision(projectile, player){
+        projectile.destroy()
         //don't decrement the lives of the flower afterwards 
         if(this.enemy.getLives() != 0){
             player.setLives(this.player.getLives() - 1)

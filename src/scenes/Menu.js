@@ -8,6 +8,7 @@ class Menu extends Phaser.Scene{
         //load images
         this.load.image('flower', './assets/img/flower.png')
         this.load.image('bullet', './assets/img/bullet.png')
+        this.load.image('cane', './assets/img/cane.png')
         //atlas 
         this.load.atlas('atlas', './assets/img/allAssets.png', './assets/img/allAssets.json')
         //audio 
@@ -29,12 +30,12 @@ class Menu extends Phaser.Scene{
         let controlsButton = this.add.image(100, 575, 'atlas', 'controlsButton.png').setScale(0.9)
         let creditsButton = this.add.image(700, 570, 'atlas', 'creditButton.png').setScale(0.9)
         //change the color and make the square more rough 
-        let controlsExitButton = this.add.image(700, 550, 'atlas', 'backButton.png').setVisible(false)
-        let creditsExitButton = this.add.image(726, 577, 'atlas', 'backButton.png').setVisible(false)
+        let controlsBackButton = this.add.image(693, 578, 'atlas', 'backButton.png').setVisible(false)
+        let creditsBackButton = this.add.image(726, 577, 'atlas', 'backButton.png').setVisible(false)
         controlsButton.setInteractive().on('pointerdown', () =>{
             controlsButton.setVisible(false)
             creditsButton.setVisible(false)
-            controlsExitButton.setVisible(true)
+            controlsBackButton.setVisible(true)
             //make credits button and control button uninteractable 
             controlsScreen.setVisible(true)
             titleScreen.setVisible(false)
@@ -42,28 +43,28 @@ class Menu extends Phaser.Scene{
         creditsButton.setInteractive().on('pointerdown', () => {
             controlsButton.setVisible(false)
             creditsButton.setVisible(false)
-            creditsExitButton.setVisible(true)
+            creditsBackButton.setVisible(true)
             //make credits button and control button uninteractable 
             creditsScreen.setVisible(true)
             titleScreen.setVisible(false)
         })
-        controlsExitButton.setInteractive().on('pointerdown', () => {
+        controlsBackButton.setInteractive().on('pointerdown', () => {
             controlsButton.setVisible(true)
             creditsButton.setVisible(true)
-            creditsExitButton.setVisible(false)
+            creditsBackButton.setVisible(false)
             controlsScreen.setVisible(false)
             //make the credits and control button uninteractable 
             titleScreen.setVisible(true)
-            controlsExitButton.setVisible(false)
+            controlsBackButton.setVisible(false)
         })
-        creditsExitButton.setInteractive().on('pointerdown', () => {
+     creditsBackButton.setInteractive().on('pointerdown', () => {
             controlsButton.setVisible(true)
             creditsButton.setVisible(true)
-            controlsExitButton.setVisible(false)
+            controlsBackButton.setVisible(false)
             creditsScreen.setVisible(false)
             //make the credits and control button uninteractable 
             titleScreen.setVisible(true)
-            creditsExitButton.setVisible(false)
+            creditsBackButton.setVisible(false)
         })
         //create the arrow animation 
         this.anims.create({
@@ -101,7 +102,7 @@ class Menu extends Phaser.Scene{
             repeat: -1
         })
         this.anims.create({
-            key: 'enemyIdle',
+            key: 'enemyDressIdle',
             frames: this.anims.generateFrameNames('atlas', {
                 prefix: 'enemy0',
                 suffix: '.png',
@@ -110,12 +111,32 @@ class Menu extends Phaser.Scene{
             frameRate: 10,
             repeat: -1
         })
+        this.anims.create({
+            key: 'butlerIdle',
+            frames: this.anims.generateFrameNames('atlas', {
+                prefix: 'butler0',
+                suffix: '.png',
+                frames: [0,1,0,1,0,1,2,3,0,1]
+            }),
+            frameRate: 8,
+            repeat: -1
+        })
+        /*this.anims.create({
+            key: 'oldManIdle',
+            frames: this.anims.generateFrameNames('atlas', {
+                prefix: 'oldMan0',
+                suffix: '.png',
+                frames: [0,1,9,1,9,1,2,3,0,1]
+            }),
+            frameRate: 8,
+            repeat: -1
+        })*/
         //needs credits as well. 
     }
     
     update(){
         if(Phaser.Input.Keyboard.JustDown(keySPACE)){
-            this.scene.start('gameOverScene')
+            this.scene.start('playScene')
         }
     }
 }
