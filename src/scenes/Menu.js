@@ -17,7 +17,9 @@ class Menu extends Phaser.Scene{
         //audio 
         this.load.audio('gunshot', './assets/audio/gunshot.wav')
         this.load.audio('jump', './assets/audio/jump.wav')
-        this.load.audio('hurt', './assets/audio/hitHurt.wav')
+        this.load.audio('playerHurt', './assets/audio/playerHurt.wav')
+        this.load.audio('brideHurt', './assets/audio/brideHurt.wav')
+        this.load.audio('enemyHurt', './assets/audio/enemyHurt.wav')
         //bitmap font from https://www.dafont.com/8-bit-1-6.font#null 
         this.load.bitmapFont('arcadeFont', './assets/font/arcadeFont.png', './assets/font/arcadeFont.xml')
         this.load.bitmapFont('redArcadeFont', './assets/font/redArcadeFont.png', './assets/font/redArcadeFont.xml')
@@ -130,7 +132,7 @@ class Menu extends Phaser.Scene{
             frames: this.anims.generateFrameNames('atlas', {
                 prefix: 'oldMan0',
                 suffix: '.png',
-                frames: [0,1,0,1,0,1,2,3,0,1]
+                frames: [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,2,3,0,1]
             }),
             frameRate: 8,
             repeat: -1

@@ -17,7 +17,7 @@ class Play extends Phaser.Scene{
         //set the scale of these to be larger later down the line
         //move the player and the bride back as well as adding in tweens 
         this.player = new Player(this, 170, 500).setScale(1.2).setSize(30)
-        this.bride = new Bride(this, -10, 458).setScale(1.5)
+        this.bride = new Bride(this, -10, 458).setScale(1.5).setSize(30)
         this.enemy = new Enemy(this, 900, 473).setScale(1.5).setSize(30)
         this.present = this.physics.add.sprite(710, 455, 'atlas', 'present01.png').setVisible(false).setImmovable(true)
         this.present.setScale(2).setSize(5)
@@ -166,7 +166,7 @@ class Play extends Phaser.Scene{
             }
             else{
                 this.currentLives = this.currentLives + 1
-                this.projectileSpeed = this.projectileSpeed - 50
+                this.projectileSpeed = this.projectileSpeed - 20
             }
         }
         if (Phaser.Input.Keyboard.JustDown(this.toggleDebug)) {
@@ -203,6 +203,7 @@ class Play extends Phaser.Scene{
         bullet.setFireStatus(false)
         //add a little score for that 
         this.turnPurple(enemy)
+        this.sound.play('enemyHurt')
         if(enemy.invincible == false){
             enemy.setLives(enemy.getLives() - 1)
         }
@@ -226,6 +227,7 @@ class Play extends Phaser.Scene{
         this.physics.add.collider(this.projectile, this.bride, (projectile, bride) =>{
             projectile.destroy()
             this.turnPurple(bride)
+            this.sound.play('brideHurt')
         })
         //collider for flower and the player 
         this.physics.add.collider(this.projectile, this.player, this.projectileCollision, null, this)  
@@ -246,7 +248,7 @@ class Play extends Phaser.Scene{
             player.setLives(this.player.getLives() - 1)
             this.livesText.setText(`X${this.player.getLives()}`)
             this.turnPurple(player)
-            this.sound.play('hurt')
+            this.sound.play('playerHurt')
         }
     }
 
