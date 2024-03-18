@@ -18,7 +18,7 @@ class Play extends Phaser.Scene{
         //move the player and the bride back as well as adding in tweens 
         this.player = new Player(this, 170, 500).setScale(1.2).setSize(30)
         this.bride = new Bride(this, -10, 458).setScale(1.5)
-        this.enemy = new Enemy(this, 900, 473).setScale(1.5)
+        this.enemy = new Enemy(this, 900, 473).setScale(1.5).setSize(30)
         this.present = this.physics.add.sprite(710, 455, 'atlas', 'present01.png').setVisible(false).setImmovable(true)
         this.present.setScale(2).setSize(5)
         this.bullet = new Projectile(this, this.player.x + 43, this.player.y-20, 'bullet').setScale(0.5).setVisible(false)
@@ -289,7 +289,7 @@ class Play extends Phaser.Scene{
         present.setVisible(false)
         present.setVelocityX(0)
         present.x = 710
-        present.y = 492
+        present.y = 455
         this.enemy.reset()
         this.enemy.setLives(this.currentLives)
         this.removeGiftTimer = this.time.addEvent({
