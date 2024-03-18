@@ -165,7 +165,6 @@ class Play extends Phaser.Scene{
                 this.enemy.setLives(this.maxLives)
             }
             else{
-                this.currentLives = this.currentLives + 1
                 this.projectileSpeed = this.projectileSpeed - 20
             }
         }
@@ -293,6 +292,7 @@ class Play extends Phaser.Scene{
         present.x = 710
         present.y = 455
         this.enemy.reset()
+        this.currentLives += 1
         this.enemy.setLives(this.currentLives)
         this.removeGiftTimer = this.time.addEvent({
             delay: 4000, 
