@@ -1,5 +1,5 @@
 let config = {
-    type: Phaser.AUTO, 
+    type: Phaser.WEBGL,  
     width: 800, 
     height: 640,
     backgroundColor: '#89cff0', 
@@ -12,7 +12,8 @@ let config = {
             debug: true
         }
     },
-    scene: [Menu, Play, GameOver]
+    scene: [Menu, Play, GameOver],
+    multiTexture: true,
 }
 //for the arrow keys and pressing space to start the game
 let game = new Phaser.Game(config)

@@ -12,8 +12,8 @@ class Play extends Phaser.Scene{
         //sprites needed: bride, player/groom, enemy
         //set the scale of these to be larger later down the line
         //move the player and the bride back as well as adding in tweens 
-        this.player = new Player(this, 360, 500).setScale(1.2).setSize(30)
-        this.bride = new Bride(this, 180, 458).setScale(1.5)
+        this.player = new Player(this, 170, 500).setScale(1.2).setSize(30)
+        this.bride = new Bride(this, -10, 458).setScale(1.5)
         this.enemy = new Enemy(this, 900, 473).setScale(1.5)
         this.present = this.physics.add.sprite(710, 492, 'atlas', 'present01.png').setVisible(false).setImmovable(true)
         this.bullet = new Projectile(this, this.player.x + 43, this.player.y-20, 'bullet').setScale(0.5).setVisible(false)
@@ -44,18 +44,40 @@ class Play extends Phaser.Scene{
             this.fireBullet()
             this.sound.play('gunshot')
         }, this); 
-        this.settings = {
+        this.enemySettings = {
             targets: this.enemy,
             loop: 0,
             tweens: [
                 {
                     x: this.enemy.x - 190,
-                    duration: 200,
+                    duration: 800,
                     ease: 'Linear'
                 }
             ]
         }
-        let enemystartTween = this.tweens.chain(this.settings)
+        let enemystartTween = this.tweens.chain(this.enemySettings)
+        let playerStartTween = this.tweens.chain({
+            targets: this.player,
+            loop: 0,
+            tweens: [
+                {
+                    x: this.player.x + 190,
+                    duration: 500,
+                    ease: 'Linear'
+                }
+            ]
+        })
+        let brideStartTween = this.tweens.chain({
+            targets: this.bride,
+            loop: 0,
+            tweens: [
+                {
+                    x: this.bride.x + 190,
+                    duration: 500,
+                    ease: 'Linear'
+                }
+            ]
+        })
         //add in the arcade style text and whatnot to https://www.dafont.com/8-bit-1-6.font#nullhttps://www.dafont.com/8-bit-1-6.font#nullthis 
         //set the world bounds for this instead of a rectangle. 
         //https://phasergames.com/how-to-jump-in-phaser-3/ 
@@ -100,6 +122,7 @@ class Play extends Phaser.Scene{
         if(Phaser.Input.Keyboard.JustDown(keyFIRE) && this.bullet.getFireStatus() == false){
             this.fireBullet()
             this.currentScoreText.setText(this.addLeadingZeros(this.currentScore += 50))
+            points = this.currentScore
             this.sound.play('gunshot')
         }
         if(this.enemy.getLives() == 0 && this.enemyPaused == false){
@@ -108,8 +131,16 @@ class Play extends Phaser.Scene{
             this.enemy.anims.pause()
             this.present.setVisible(true)
             this.present.setVelocityX(-130)
-            this.currentScoreText.setText(this.addLeadingZeros(this.currentScore += 500))
-            console.log(this.currentScore)
+            this.currentScore += 500
+            points = this.currentScore
+            this.currentScoreText.setText(this.addLeadingZeros(this.currentScore))
+            let presentScore = this.add.bitmapText(690, 410, 'arcadeFont', `500`, 20).setTint(0xff0000, 0xffff00, 0x00ff00, 0x0000ff)
+            this.time.addEvent({
+                delay: 600,
+                callback: () =>{
+                    presentScore.destroy()
+                }
+            })
         }
         if(this.player.getLives() == 0){
             this.scene.start('gameOverScene')
@@ -122,7 +153,7 @@ class Play extends Phaser.Scene{
             this.bullet.setFireStatus(false)
         }
         //this.levelsIncrease(this.projectileSpeed)
-        if(this.enemy.getDeathNumber() != 0 && this.enemy.getDeathNumber() % 1 == 0 && this.speedIncreased == false){
+        if(this.enemy.getDeathNumber() != 0 && this.enemy.getDeathNumber() % 4 == 0 && this.speedIncreased == false){
             this.speedIncreased = true 
             if(this.projectileSpeed >= -850 && this.enemy.getLives() == 10){
                 this.projectileSpeed = -850
@@ -177,7 +208,7 @@ class Play extends Phaser.Scene{
         }
         this.projectile.setPushable(false)
         this.projectile.setVelocityX(this.projectileSpeed)  
-        console.log(this.projectileSpeed)
+        //collider for bride and projectile 
         this.physics.add.collider(this.projectile, this.bride, (projectile, bride) =>{
             projectile.destroy()
             this.turnPurple(bride)
@@ -197,6 +228,7 @@ class Play extends Phaser.Scene{
         projectile.destroy()
         //don't decrement the lives of the flower afterwards 
         if(this.enemy.getLives() != 0){
+            //set player lives and adjust the text accordingly
             player.setLives(this.player.getLives() - 1)
             this.livesText.setText(`X${this.player.getLives()}`)
             this.turnPurple(player)
@@ -205,7 +237,9 @@ class Play extends Phaser.Scene{
 
     //turn the character in this scene purple and then back to white
     turnPurple(character){
+        //turn em purple
         character.setTint(0xA020F0)
+        //reset back to white afterwards 
             this.time.addEvent({
                 delay: 800,
                 callback: () => {
@@ -217,6 +251,7 @@ class Play extends Phaser.Scene{
 
     //enemy reset 
     reset(player, present){
+        //display the correct text depending on the skin of the character 
         if(this.enemy.getSkinNumber() == 2){
             this.gift = this.add.image(400, 310, 'atlas', 'plateAndCloth.png').setScale(2.5)
             this.giftTopText = this.add.bitmapText(210, 190, 'arcadeFont', 'PLATE AND CLOTH', 30)
@@ -236,10 +271,10 @@ class Play extends Phaser.Scene{
         this.gift.setVisible(true)
         this.giftTopText.setVisible(true)
         this.giftBotText.setVisible(true)
-        this.present.setVisible(false)
-        this.present.setVelocityX(0)
-        this.present.x = 710
-        this.present.y = 492
+        present.setVisible(false)
+        present.setVelocityX(0)
+        present.x = 710
+        present.y = 492
         this.enemy.reset()
         this.enemy.setLives(this.currentLives)
         this.removeGiftTimer = this.time.addEvent({
@@ -252,7 +287,7 @@ class Play extends Phaser.Scene{
                 this.enemy.setVisible(true)
                 this.speedIncreased = false 
                 //find a way to restart the tween and make it more clean 
-                let enemystartTween = this.tweens.chain(this.settings)
+                let enemystartTween = this.tweens.chain(this.enemySettings)
             }
         })
         //this.enemy.anims.resume()

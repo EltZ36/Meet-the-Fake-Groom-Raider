@@ -22,7 +22,6 @@ class Player extends Phaser.Physics.Arcade.Sprite{
             this.body.setVelocityY(-400)
             this.scene.sound.play('jump')
         }
-        //have it play the animation 
     }
 
     //getters and setters for the black box approach/cleaner way to access the lives 

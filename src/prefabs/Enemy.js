@@ -13,6 +13,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     }
 
     update(){
+        //set it to yellow if invincible and then remove it after it isn't 
         if(this.invincible == true){
             this.setTint(0xFFFF00)
             this.scene.time.addEvent({
@@ -25,6 +26,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         }
     }
 
+    //getters and setters for the skin and death number which are level increases basically
     getLives(){
         return this.lives 
     }
@@ -42,6 +44,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     }
 
     setSkinNumber(number){
+        //set it to the correct skin and play the right animation for the skins 
         this.skinNumber = number
         if(this.skinNumber == 1){
             this.setTexture('atlas', 'enemy00.png')
@@ -73,6 +76,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
     }
 
     setLives(lives){
+        //make sure we don't get negative lives 
         if(this.lives < 0){
             this.lives = 0
         }
@@ -81,6 +85,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         }
     }
 
+    //reset all the enemy stats and get the random skin after it dies 
     reset(){
         this.setVelocityX(0)
         this.setVisible(true)
