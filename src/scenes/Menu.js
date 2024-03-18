@@ -10,6 +10,8 @@ class Menu extends Phaser.Scene{
         this.load.image('bullet', './assets/img/bullet.png')
         this.load.image('cane', './assets/img/cane.png')
         this.load.image('wine', './assets/img/wine.png')
+        this.load.image('beltAndGlass', './assets/img/beltAndGlass.png')
+        this.load.image('plateAndCloth', './assets/img/plateAndCloth.png')
         //atlas 
         this.load.atlas('atlas', './assets/img/allAssets.png', './assets/img/allAssets.json')
         //audio 

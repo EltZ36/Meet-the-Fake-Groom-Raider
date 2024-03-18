@@ -16,15 +16,11 @@ class Play extends Phaser.Scene{
         this.bride = new Bride(this, 180, 458).setScale(1.5)
         this.enemy = new Enemy(this, 900, 473).setScale(1.5)
         this.present = this.physics.add.sprite(710, 492, 'atlas', 'present01.png').setVisible(false).setImmovable(true)
-        this.gift = this.add.image(400, 310, 'atlas', 'knifeSet.png').setVisible(false).setScale(2.5)
         this.bullet = new Projectile(this, this.player.x + 43, this.player.y-20, 'bullet').setScale(0.5).setVisible(false)
         this.currentScore = 0
         //switch to texture atlas soon 
         //flashing up arrow with the character to indicate moving and then remove it afterwards
         this.topTitle = this.add.image(400,28, 'atlas', 'topTitle.png').setOrigin(0.5).setScale(0.8)
-        //knife text 
-        this.giftTopText = this.add.bitmapText(230, 190, 'arcadeFont', 'STEAK KNIFE SET', 30).setVisible(false)
-        this.giftBotText = this.add.bitmapText(230, 220, 'arcadeFont', 'WITH GIFT RECIPT!', 30).setVisible(false)
         //title, high score, and curent score text 
         this.titleText = this.add.bitmapText(80, 90, 'redArcadeFont', 'GROOM RAIDER', 20)
         this.highScoreText = this.add.bitmapText(350, 90, 'arcadeFont', 'HIGHSCORE', 20)
@@ -79,11 +75,11 @@ class Play extends Phaser.Scene{
         this.physics.add.collider(this.enemy, this.bullet, this.bulletReset, null, this)
         this.enemyPaused = false 
         this.enemyDead = false 
-        this.enemy.anims.play('enemyDressIdle')
         //https://labs.phaser.io/edit.html?src=src\animation\on%20complete%20event.js
         this.enemy.on('animationrepeat', function () {
             this.throwProjectile()
         }, this);
+        this.enemy.setSkinNumber(3)
     }
 
     update(){
@@ -111,7 +107,6 @@ class Play extends Phaser.Scene{
         if(this.player.getLives() == 0){
             //this.scene.start('gameOverScene')
         }
-        //console.log(this.enemy.getLives())
         if(this.bullet.x > 800){
             this.bullet.x = this.player.x + 43
             this.bullet.y = this.player.y - 20
@@ -205,6 +200,22 @@ class Play extends Phaser.Scene{
 
     //enemy reset 
     reset(player, present){
+        if(this.enemy.getSkinNumber() == 2){
+            this.gift = this.add.image(400, 310, 'plateAndCloth').setScale(2.5)
+            this.giftTopText = this.add.bitmapText(210, 190, 'arcadeFont', 'PLATE AND CLOTH', 30)
+            this.giftBotText = this.add.bitmapText(130, 230, 'arcadeFont', 'THIS IS TRULY FINE CHINA!', 30)
+        }
+        else if(this.enemy.getSkinNumber() == 3){
+            this.gift = this.add.image(400, 320, 'beltAndGlass').setScale(2.5)
+            this.giftTopText = this.add.bitmapText(130, 180, 'arcadeFont', 'VINTAGE BELT AND GLASS', 30)
+            this.giftMidText = this.add.bitmapText(130, 230, 'arcadeFont', 'THEY DON\'T MAKE EM BEFORE!', 30)
+        }
+        else{
+            this.gift = this.add.image(400, 310, 'atlas', 'knifeSet.png').setScale(2.5)
+            //knife text 
+            this.giftTopText = this.add.bitmapText(230, 190, 'arcadeFont', 'STEAK KNIFE SET', 30)
+            this.giftBotText = this.add.bitmapText(230, 230, 'arcadeFont', 'WITH GIFT RECIPT!', 30)
+        }
         this.gift.setVisible(true)
         this.giftTopText.setVisible(true)
         this.giftBotText.setVisible(true)
