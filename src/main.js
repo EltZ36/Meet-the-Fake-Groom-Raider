@@ -37,5 +37,5 @@ let keySPACE, keyUP, keyDOWN, keyFIRE, keyRESET, keyMENU, mouseFIRE
 let borderUISize = game.config.height / 15
 let borderPadding = borderUISize / 3
 let highScore
-let points 
+let points = 0
 let newHighScore = false
