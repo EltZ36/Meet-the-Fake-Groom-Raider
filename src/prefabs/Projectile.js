@@ -11,7 +11,7 @@ class Projectile extends Phaser.Physics.Arcade.Sprite{
         //add in the scene.existing.this() 
     }
 
-    checkHitStatus(){
+    getHitStatus(){
         return this.hitStatus 
     }
 
@@ -19,11 +19,11 @@ class Projectile extends Phaser.Physics.Arcade.Sprite{
         this.hitStatus = currentHitStatus
     }
 
-    checkFireStatus(){
+    getFireStatus(){
         return this.fireStatus
     }
 
-    getFireStatus(currentFireStatus){
+    setFireStatus(currentFireStatus){
         return this.fireStatus = currentFireStatus
     }
     

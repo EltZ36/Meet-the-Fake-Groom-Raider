@@ -97,7 +97,7 @@ class Play extends Phaser.Scene{
         }
         //add a delay to the fire and making sure that the bullet can't be fired while traveling. To boost this, increase the velocity or timings of the bullets. 
         //make the enemy invincible for around 6 seconds after resetting
-        if(Phaser.Input.Keyboard.JustDown(keyFIRE)){
+        if(Phaser.Input.Keyboard.JustDown(keyFIRE) && this.bullet.getFireStatus() == false){
             this.fireBullet()
             this.sound.play('gunshot')
         }
@@ -112,12 +112,12 @@ class Play extends Phaser.Scene{
             //this.scene.start('gameOverScene')
         }
         //console.log(this.enemy.getLives())
-        console.log(this.bullet.x)
         if(this.bullet.x > 800){
             this.bullet.x = this.player.x + 43
             this.bullet.y = this.player.y - 20
             this.bullet.setVelocityX(0)
             this.bullet.setVisible(false)
+            this.bullet.setFireStatus(false)
         }
     }
 
@@ -126,12 +126,12 @@ class Play extends Phaser.Scene{
         //have the player fire with f in the update and call on this function 
         //create a bullet with the projectile class and then add a collider
         //add in a flag variable for the bullet to make sure you can't just spam the bullet 
-        this.bullet.setVelocityX(300)
+        this.bullet.setVelocityX(500)
         //collider for the enemy and the bullet 
         this.bullet.x = this.player.x + 43
         this.bullet.y = this.player.y - 20 
         this.bullet.setVisible(true)
-        this.bullet.setVelocityX(300)
+        this.bullet.setFireStatus(true)
     }
 
 
@@ -140,6 +140,7 @@ class Play extends Phaser.Scene{
         bullet.x = this.player.x + 43
         bullet.y = this.player.y - 20
         bullet.setVelocityX(0)
+        bullet.setFireStatus(false)
         this.currentScoreText.setText(this.addLeadingZeros(this.currentScore += 50))
         this.turnPurple(enemy)
         if(enemy.invincible == false){
