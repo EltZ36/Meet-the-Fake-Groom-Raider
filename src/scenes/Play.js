@@ -15,7 +15,9 @@ class Play extends Phaser.Scene{
         this.player = new Player(this, 360, 500).setScale(1.2).setSize(30)
         this.bride = new Bride(this, 180, 458).setScale(1.5)
         this.enemy = new Enemy(this, 900, 473).setScale(1.5)
+        this.present = this.physics.add.sprite(710, 492, 'atlas', 'present01.png').setVisible(false).setImmovable(true)
         this.gift = this.add.image(400, 310, 'atlas', 'knifeSet.png').setVisible(false).setScale(2.5)
+        this.bullet = new Projectile(this, this.player.x + 43, this.player.y-20, 'bullet').setScale(0.5).setVisible(false)
         this.currentScore = 0
         //switch to texture atlas soon 
         //flashing up arrow with the character to indicate moving and then remove it afterwards
@@ -69,11 +71,12 @@ class Play extends Phaser.Scene{
         )
         this.physics.add.collider(
             this.player, 
-            this.enemy, 
+            this.present, 
             this.reset,
             null,
             this
         )
+        this.physics.add.collider(this.enemy, this.bullet, this.bulletReset, null, this)
         this.enemyPaused = false 
         this.enemyDead = false 
         this.enemy.anims.play('enemyDressIdle')
@@ -92,21 +95,30 @@ class Play extends Phaser.Scene{
         if(keyUP.isDown){
             this.arrowInstructions.destroy()
         }
+        //add a delay to the fire and making sure that the bullet can't be fired while traveling. To boost this, increase the velocity or timings of the bullets. 
+        //make the enemy invincible for around 6 seconds after resetting
         if(Phaser.Input.Keyboard.JustDown(keyFIRE)){
             this.fireBullet()
             this.sound.play('gunshot')
         }
         if(this.enemy.getLives() == 0 && this.enemyPaused == false){
             this.enemyPaused = true
-            this.enemy.setTexture('atlas', 'present01.png')
-            this.enemy.setVelocityX(-150)
+            this.enemy.setVisible(false)
             this.enemy.anims.pause()
+            this.present.setVisible(true)
+            this.present.setVelocityX(-130)
         }
         if(this.player.getLives() == 0){
             //this.scene.start('gameOverScene')
         }
         //console.log(this.enemy.getLives())
-        console.log(this.enemyPaused)
+        console.log(this.bullet.x)
+        if(this.bullet.x > 800){
+            this.bullet.x = this.player.x + 43
+            this.bullet.y = this.player.y - 20
+            this.bullet.setVelocityX(0)
+            this.bullet.setVisible(false)
+        }
     }
 
     //shoot out a bullet with f
@@ -114,16 +126,25 @@ class Play extends Phaser.Scene{
         //have the player fire with f in the update and call on this function 
         //create a bullet with the projectile class and then add a collider
         //add in a flag variable for the bullet to make sure you can't just spam the bullet 
-        this.bullet = new Projectile(this, this.player.x + 43, this.player.y-20, 'bullet').setScale(0.5)
-        //this.bullet = new Projectile(this, this.player.x, this.player.y, 'bullet')
         this.bullet.setVelocityX(300)
         //collider for the enemy and the bullet 
-        this.physics.add.collider(this.enemy, this.bullet, (enemy, bullet) =>{
-            bullet.destroy()
-            this.currentScoreText.setText(this.addLeadingZeros(this.currentScore += 50))
-            this.turnPurple(enemy)
+        this.bullet.x = this.player.x + 43
+        this.bullet.y = this.player.y - 20 
+        this.bullet.setVisible(true)
+        this.bullet.setVelocityX(300)
+    }
+
+
+    bulletReset(enemy, bullet){
+        bullet.setVisible(false)
+        bullet.x = this.player.x + 43
+        bullet.y = this.player.y - 20
+        bullet.setVelocityX(0)
+        this.currentScoreText.setText(this.addLeadingZeros(this.currentScore += 50))
+        this.turnPurple(enemy)
+        if(enemy.invincible == false){
             enemy.setLives(enemy.getLives() - 1)
-        })
+        }
     }
 
     //for the enemy thowing the flower 
@@ -182,12 +203,15 @@ class Play extends Phaser.Scene{
     }
 
     //enemy reset 
-    reset(player, enemy){
+    reset(player, present){
         this.gift.setVisible(true)
         this.giftTopText.setVisible(true)
         this.giftBotText.setVisible(true)
-        enemy.anims.stop()
-        enemy.reset()
+        this.present.setVisible(false)
+        this.present.setVelocityX(0)
+        this.present.x = 710
+        this.present.y = 492
+        this.enemy.reset()
         this.removeGiftTimer = this.time.addEvent({
             delay: 4000, 
             callback: () => {
@@ -195,6 +219,7 @@ class Play extends Phaser.Scene{
                 this.giftTopText.setVisible(false)
                 this.giftBotText.setVisible(false)
                 this.enemyPaused = false 
+                this.enemy.setVisible(true)
                 //find a way to restart the tween and make it more clean 
                 let enemystartTween = this.tweens.chain(this.settings)
             }

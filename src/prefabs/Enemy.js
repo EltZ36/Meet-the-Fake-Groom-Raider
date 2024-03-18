@@ -9,9 +9,16 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         this.lives = 5
         this.deathNumber = 0
         this.skinNumber = 1
+        this.invincible = false 
     }
 
     update(){
+        if(this.invincible == true){
+            this.setTint(0xFFFF00)
+        }
+        else{
+            this.setTint(0xFFFFFF)
+        }
     }
 
     getLives(){
@@ -77,5 +84,12 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         this.y = 473
         this.setDeathNumber(this.getDeathNumber() + 1)
         this.setSkinNumber(Phaser.Math.Between(1, 3))
+        this.invincible = true 
+        this.invincibleTimer = this.scene.time.addEvent({
+            delay: 6000, 
+            callback: () => {
+                this.invincible = false 
+            }
+        })
     }
 }
