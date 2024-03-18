@@ -38,14 +38,6 @@ class Play extends Phaser.Scene{
             },
             repeat: -1
         })
-        //grader mode for this as I plan to make this much faster 
-        /*this.throwTimer = this.time.addEvent({
-            delay: 2800,
-            callback: () => {
-                //this.throwFlower()
-            },
-            repeat: -1
-        })*/ 
         this.player.anims.play('playerIdle')
         this.bride.anims.play('brideIdle')
         //from https://labs.phaser.io/edit.html?src=src/input\pointer\down%20event.js
@@ -84,12 +76,7 @@ class Play extends Phaser.Scene{
         )
         this.enemyPaused = false 
         this.enemyDead = false 
-        if(this.enemy.getSkinNumber() == 2 && this.enemy.getDeathNumber() > 0){
-            this.enemy.anims.play('butlerIdle')
-        }
-        else{
-            this.enemy.anims.play('enemyDressIdle')
-        }
+        this.enemy.anims.play('enemyDressIdle')
         //https://labs.phaser.io/edit.html?src=src\animation\on%20complete%20event.js
         this.enemy.on('animationrepeat', function () {
             this.throwProjectile()
@@ -109,7 +96,8 @@ class Play extends Phaser.Scene{
             this.fireBullet()
             this.sound.play('gunshot')
         }
-        if(this.enemy.lives == 0){
+        if(this.enemy.getLives() == 0 && this.enemyPaused == false){
+            this.enemyPaused = true
             this.enemy.setTexture('atlas', 'present01.png')
             this.enemy.setVelocityX(-150)
             this.enemy.anims.pause()
@@ -117,6 +105,8 @@ class Play extends Phaser.Scene{
         if(this.player.getLives() == 0){
             //this.scene.start('gameOverScene')
         }
+        //console.log(this.enemy.getLives())
+        console.log(this.enemyPaused)
     }
 
     //shoot out a bullet with f
@@ -130,18 +120,19 @@ class Play extends Phaser.Scene{
         //collider for the enemy and the bullet 
         this.physics.add.collider(this.enemy, this.bullet, (enemy, bullet) =>{
             bullet.destroy()
-            enemy.setLives(enemy.getLives() - 1)
             this.currentScoreText.setText(this.addLeadingZeros(this.currentScore += 50))
+            this.turnPurple(enemy)
+            enemy.setLives(enemy.getLives() - 1)
         })
     }
 
     //for the enemy thowing the flower 
     throwProjectile(){
         //different skins have different velocities and two more will unlock if the enemy has already been shot
-        if(this.enemy.getSkinNumber() == 2 && this.enemy.getDeathNumber() > 0){
-            this.projectile = new Projectile(this, this.enemy.x, this.enemy.y, 'flower').setScale(1.5)
+        if(this.enemy.getSkinNumber() == 2 && this.enemy.getDeathNumber() >= 1){
+            this.projectile = new Projectile(this, this.enemy.x, this.enemy.y, 'wine').setScale(1.5)
         }
-        if(this.enemy.getSkinNumber() == 3 && this.enemy.getDeathNumber() > 0){
+        else if(this.enemy.getSkinNumber() == 3 && this.enemy.getDeathNumber() >= 1){
             this.projectile = new Projectile(this, this.enemy.x, this.enemy.y, 'cane').setScale(1.5) 
         }
         else{
@@ -152,14 +143,7 @@ class Play extends Phaser.Scene{
         this.projectile.setVelocityX(-300)  
         this.physics.add.collider(this.projectile, this.bride, (projectile, bride) =>{
             projectile.destroy()
-            bride.setTint(0xA020F0)
-            this.time.addEvent({
-                delay: 800,
-                callback: () => {
-                    bride.setTint(0xFFFFFF)
-                },
-                repeat: 0
-            })
+            this.turnPurple(bride)
         })
         //collider for flower and the player 
         this.physics.add.collider(this.projectile, this.player, this.projectileCollision, null, this)  
@@ -181,12 +165,24 @@ class Play extends Phaser.Scene{
         //don't decrement the lives of the flower afterwards 
         if(this.enemy.getLives() != 0){
             player.setLives(this.player.getLives() - 1)
+            this.turnPurple(player)
         }
+    }
+
+    //turn the character in this scene purple and then back to white
+    turnPurple(character){
+        character.setTint(0xA020F0)
+            this.time.addEvent({
+                delay: 800,
+                callback: () => {
+                    character.setTint(0xFFFFFF)
+                },
+                repeat: 0
+            })
     }
 
     //enemy reset 
     reset(player, enemy){
-        this.enemyPaused = false 
         this.gift.setVisible(true)
         this.giftTopText.setVisible(true)
         this.giftBotText.setVisible(true)
@@ -198,6 +194,7 @@ class Play extends Phaser.Scene{
                 this.gift.setVisible(false)
                 this.giftTopText.setVisible(false)
                 this.giftBotText.setVisible(false)
+                this.enemyPaused = false 
                 //find a way to restart the tween and make it more clean 
                 let enemystartTween = this.tweens.chain(this.settings)
             }

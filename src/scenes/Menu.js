@@ -9,6 +9,7 @@ class Menu extends Phaser.Scene{
         this.load.image('flower', './assets/img/flower.png')
         this.load.image('bullet', './assets/img/bullet.png')
         this.load.image('cane', './assets/img/cane.png')
+        this.load.image('wine', './assets/img/wine.png')
         //atlas 
         this.load.atlas('atlas', './assets/img/allAssets.png', './assets/img/allAssets.json')
         //audio 
@@ -121,16 +122,16 @@ class Menu extends Phaser.Scene{
             frameRate: 8,
             repeat: -1
         })
-        /*this.anims.create({
+        this.anims.create({
             key: 'oldManIdle',
             frames: this.anims.generateFrameNames('atlas', {
                 prefix: 'oldMan0',
                 suffix: '.png',
-                frames: [0,1,9,1,9,1,2,3,0,1]
+                frames: [0,1,0,1,0,1,2,3,0,1]
             }),
             frameRate: 8,
             repeat: -1
-        })*/
+        })
         //needs credits as well. 
     }
     

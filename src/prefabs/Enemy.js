@@ -6,7 +6,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         scene.physics.add.existing(this)
         this.setImmovable()
         this.scene = scene 
-        this.lives = 1
+        this.lives = 5
         this.deathNumber = 0
         this.skinNumber = 1
     }
@@ -34,9 +34,30 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         this.skinNumber = number
         if(this.skinNumber == 1){
             this.setTexture('atlas', 'enemy00.png')
+            this.animationTimer = this.scene.time.addEvent({
+                delay: 4000, 
+                callback: () => {
+                    this.anims.play('enemyDressIdle')
+                }
+            })
         }
         else if(this.skinNumber == 2){
             this.setTexture('atlas', 'butler00.png')
+            this.animationTimer = this.scene.time.addEvent({
+                delay: 4000, 
+                callback: () => {
+                    this.anims.play('butlerIdle')
+                }
+            })
+        }
+        else if(this.skinNumber == 3){
+            this.setTexture('atlas', 'oldMan00.png')
+            this.animationTimer = this.scene.time.addEvent({
+                delay: 4000, 
+                callback: () => {
+                    this.anims.play('oldManIdle')
+                }
+            })
         }
     }
 
@@ -54,14 +75,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite{
         this.setVelocityX(0)
         this.x = 900
         this.y = 473
-        this.setTexture('atlas', 'enemy00.png')
-        //this.setDeathNumber(this.getDeathNumber + 1)
-        //this.skinNumber = Phaser.Math.Between(1, 3)
-        this.animationTimer = this.scene.time.addEvent({
-            delay: 4000, 
-            callback: () => {
-            this.anims.resume()
-            }
-        })
+        this.setDeathNumber(this.getDeathNumber() + 1)
+        this.setSkinNumber(Phaser.Math.Between(1, 3))
     }
 }
