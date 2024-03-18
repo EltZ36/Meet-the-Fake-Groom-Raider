@@ -1,3 +1,14 @@
+/*name: Elton Zeng
+game from: 120Z mouse groom raider clip link: https://www.youtube.com/watch?v=qwDvvJmP2g0 
+for the game, I did not include any audio or background music given that it is difficult to discern what is what. I decided to just use my own sounds and see if it fit correctly. 
+Components: physics system (collison), bitmap text/text objects, animation managers, texture atlas, tweens, timers, user input (mouse and keyboard)
+
+Code I borrowed from:
+Paddle Parkour for the score system in lines 13 - 32 and are on lines 9 - 33 on paddle parkour of gameOver.js 
+For the pointerdown events, I used the example on phaser 3: https://labs.phaser.io/edit.html?src=src/input\pointer\down%20event.js 
+For the animation complete/repeat on lines 107 - 109, I used https://labs.phaser.io/edit.html?src=src\animation\on%20complete%20event.js as a reference
+For the debug settings in Play.js in lines 10 - 11, 172 - 180, I got from https://phaser.discourse.group/t/turn-on-off-debug-at-runtime/3681/2 from StinofSin on September 2021
+*/ 
 let config = {
     type: Phaser.WEBGL,  
     width: 800, 

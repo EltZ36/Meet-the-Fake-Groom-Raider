@@ -4,7 +4,11 @@ class Play extends Phaser.Scene{
     }
 
     create(){
+        //set the world bounds for this
         this.physics.world.setBounds(0,0, 0, 530, false, false, false, true)
+        //debug button 
+        this.physics.world.drawDebug = false;
+        this.toggleDebug = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         //player input 
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
         keyFIRE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
@@ -15,7 +19,8 @@ class Play extends Phaser.Scene{
         this.player = new Player(this, 170, 500).setScale(1.2).setSize(30)
         this.bride = new Bride(this, -10, 458).setScale(1.5)
         this.enemy = new Enemy(this, 900, 473).setScale(1.5)
-        this.present = this.physics.add.sprite(710, 492, 'atlas', 'present01.png').setVisible(false).setImmovable(true)
+        this.present = this.physics.add.sprite(710, 455, 'atlas', 'present01.png').setVisible(false).setImmovable(true)
+        this.present.setScale(2).setSize(5)
         this.bullet = new Projectile(this, this.player.x + 43, this.player.y-20, 'bullet').setScale(0.5).setVisible(false)
         this.currentScore = 0
         //switch to texture atlas soon 
@@ -79,8 +84,6 @@ class Play extends Phaser.Scene{
             ]
         })
         //add in the arcade style text and whatnot to https://www.dafont.com/8-bit-1-6.font#nullhttps://www.dafont.com/8-bit-1-6.font#nullthis 
-        //set the world bounds for this instead of a rectangle. 
-        //https://phasergames.com/how-to-jump-in-phaser-3/ 
         this.ground = this.physics.add.sprite(0, 600, 'atlas', 'ground.png')
         this.ground.setImmovable()
         this.physics.add.collider(
@@ -96,13 +99,15 @@ class Play extends Phaser.Scene{
         )
         this.physics.add.collider(this.enemy, this.bullet, this.bulletReset, null, this)
         this.enemyPaused = false 
-        this.enemyDead = false 
-        //https://labs.phaser.io/edit.html?src=src\animation\on%20complete%20event.js
+        //play the default enemy animation to start off 
         this.enemy.anims.play('enemyDressIdle')
+        //for the speed increase in the levels 
         this.speedIncreased = false 
         this.projectileSpeed = -300
+        //maximum number of lives 
         this.maxLives = 10
         this.currentLives = 3
+         //https://labs.phaser.io/edit.html?src=src\animation\on%20complete%20event.js
         this.enemy.on('animationrepeat', function () {
             this.throwProjectile()
         }, this);
@@ -164,6 +169,15 @@ class Play extends Phaser.Scene{
                 this.projectileSpeed = this.projectileSpeed - 50
             }
         }
+        if (Phaser.Input.Keyboard.JustDown(this.toggleDebug)) {
+            if (this.physics.world.drawDebug) {
+              this.physics.world.drawDebug = false;
+              this.physics.world.debugGraphic.clear();
+            }
+            else {
+              this.physics.world.drawDebug = true;
+            }
+          }
     }
 
     //shoot out a bullet with f
@@ -232,6 +246,7 @@ class Play extends Phaser.Scene{
             player.setLives(this.player.getLives() - 1)
             this.livesText.setText(`X${this.player.getLives()}`)
             this.turnPurple(player)
+            this.sound.play('hurt')
         }
     }
 
